@@ -18,9 +18,9 @@
   },
   "scripts": {
     "client": "react-scripts start",
-    "server": "set NODE_OPTIONS=--openssl-legacy-provider && node --experimental-specifier-resolution=node src/apiServer.js",
+    "server": "NODE_OPTIONS=--openssl-legacy-provider node --experimental-specifier-resolution=node src/apiServer.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "start": "npm run dev",
+    "start": "node src/apiServer.js",
     "build": "react-scripts build"
   },
   "proxy": "http://localhost:5000",
