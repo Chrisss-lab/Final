@@ -11,7 +11,8 @@
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.1",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "serve": "^14.2.0"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"
@@ -20,7 +21,7 @@
     "client": "react-scripts start",
     "server": "NODE_OPTIONS=--openssl-legacy-provider node --experimental-specifier-resolution=node src/apiServer.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "start": "node src/apiServer.js",
+    "start": "serve -s build",
     "build": "react-scripts build"
   },
   "proxy": "http://localhost:5000",
