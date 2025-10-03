@@ -4,6 +4,7 @@ function Order() {
   const [form, setForm] = useState({
     name: "",
     email: "",
+    phone: "",
     inquiry: ""
   });
 
@@ -17,7 +18,7 @@ function Order() {
     // Construct mailto link
     const subject = encodeURIComponent("New Inquiry from Jersey Raw Website");
     const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.inquiry}`
+      `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\n\nFood Order & Inquiries:\n${form.inquiry}`
     );
     window.location.href = `mailto:JerseyRawHelp@gmail.com?subject=${subject}&body=${body}`;
   };
@@ -36,6 +37,7 @@ function Order() {
       <h2 style={{ color: "#2b6e44", textAlign: "center" }}>
         🐾 Orders Page – Under Construction
       </h2>
+
       <p style={{ textAlign: "center", marginBottom: "10px", color: "#444" }}>
         Our online ordering system is coming soon.  
         In the meantime, please send us an inquiry below,  
@@ -88,7 +90,24 @@ function Order() {
         </label>
 
         <label>
-          Inquiry:
+          Phone Number:
+          <input
+            type="tel"
+            name="phone"
+            value={form.phone}
+            onChange={handleChange}
+            required
+            style={{
+              padding: "10px",
+              width: "100%",
+              borderRadius: "6px",
+              border: "1px solid #ccc"
+            }}
+          />
+        </label>
+
+        <label>
+          Food Order & Inquiries:
           <textarea
             name="inquiry"
             value={form.inquiry}
@@ -115,7 +134,7 @@ function Order() {
             cursor: "pointer"
           }}
         >
-          Send Inquiry
+          Send Order / Inquiry
         </button>
       </form>
 
