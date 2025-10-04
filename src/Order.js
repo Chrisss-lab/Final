@@ -47,8 +47,16 @@ function Order() {
         <a href="sms:+19735322247">973-532-2247</a>.
       </p>
 
-      <p style={{ textAlign: "center", marginBottom: "20px", fontWeight: "bold", color: "#2b6e44" }}>
-        Can be made in 1Lb or 1/2Lb containers 🥩
+      <p
+        style={{
+          textAlign: "center",
+          marginBottom: "20px",
+          fontWeight: "bold",
+          color: "#2b6e44"
+        }}
+      >
+        🐶 Dog food can be specially ordered in <strong>2 lb, 1 lb, or ½ lb containers</strong> — perfect for any pup’s appetite.  
+        🐱 Cat food comes in <strong>2 oz portions</strong>, just the right size for your feline friend.
       </p>
 
       <form
