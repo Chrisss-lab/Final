@@ -97,7 +97,7 @@ const recipes = [
   },
   {
     name: "Alpha Bite Beef",
-    price: 3.75,
+    price: 4.00,
     description:
       "A hearty, protein-packed formula crafted for strength and energy. This blend supports muscle maintenance, strong bones, and overall vitality—perfect for active dogs who love to run, play, and explore. For maximum nutrition and optimal results, this food must be served raw.",
     ingredients: [
