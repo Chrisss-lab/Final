@@ -9,22 +9,16 @@ import Calculator from "./Calculator.js";
 import NewToRaw from "./NewToRaw.js";
 
 import logo from "./photo-jersey-raw-logo.jpg";
+import foodHero from "./Photos/Food 4.jpg"; // <-- Correct path to Photos folder
 
 function App() {
   const [showHeader, setShowHeader] = useState(true);
   const [lastScroll, setLastScroll] = useState(0);
 
-  // Detect scroll direction to hide/show header
   useEffect(() => {
     const handleScroll = () => {
       const currentScroll = window.scrollY;
-      if (currentScroll > lastScroll && currentScroll > 100) {
-        // scrolling down
-        setShowHeader(false);
-      } else {
-        // scrolling up
-        setShowHeader(true);
-      }
+      setShowHeader(currentScroll < lastScroll || currentScroll < 100);
       setLastScroll(currentScroll);
     };
     window.addEventListener("scroll", handleScroll);
@@ -34,51 +28,53 @@ function App() {
   const linkStyle = {
     textDecoration: "none",
     color: "#2b6e44",
-    fontWeight: "bold",
-    padding: "10px 12px",
-    textAlign: "center",
-    borderRadius: "8px",
+    fontWeight: "600",
+    padding: "10px 16px",
+    borderRadius: "12px",
     backgroundColor: "#e6f1ea",
     margin: "4px",
-    minWidth: "70px",
+    minWidth: "80px",
     display: "inline-block",
+    transition: "all 0.2s",
   };
 
   const buttonStyle = {
     display: "inline-block",
-    padding: "15px 30px",
+    padding: "15px 32px",
     margin: "15px",
     backgroundColor: "#2b6e44",
     color: "#fff",
     fontSize: "1.2em",
     fontWeight: "bold",
-    borderRadius: "10px",
+    borderRadius: "20px",
     textDecoration: "none",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
     transition: "all 0.2s",
   };
 
   const cardStyle = {
     maxWidth: "900px",
     margin: "30px auto",
-    padding: "25px",
-    backgroundColor: "#ffffffcc",
-    borderRadius: "12px",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    padding: "30px",
+    backgroundColor: "#ffffffdd",
+    borderRadius: "20px",
+    boxShadow: "0 6px 18px rgba(0,0,0,0.1)",
     textAlign: "center",
   };
 
   const heroStyle = {
     position: "relative",
-    backgroundImage: `url(${logo})`,
+    backgroundImage: `url(${foodHero})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
-    padding: "60px 20px",
-    borderRadius: "12px",
+    padding: "80px 20px",
+    borderRadius: "20px",
     margin: "20px auto",
     maxWidth: "900px",
     color: "#fff",
     textAlign: "center",
     overflow: "hidden",
+    boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
   };
 
   const overlayStyle = {
@@ -87,15 +83,15 @@ function App() {
     left: 0,
     width: "100%",
     height: "100%",
-    backgroundColor: "rgba(0,0,0,0.55)",
-    borderRadius: "12px",
+    background: "linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6))",
+    borderRadius: "20px",
     zIndex: 1,
   };
 
   const heroTextStyle = {
     position: "relative",
     zIndex: 2,
-    textShadow: "1px 1px 6px rgba(0,0,0,0.8)",
+    textShadow: "1px 1px 8px rgba(0,0,0,0.9)",
   };
 
   const navItems = [
@@ -112,9 +108,9 @@ function App() {
     <Router>
       <div
         style={{
-          fontFamily: "Arial, sans-serif",
+          fontFamily: "'Poppins', Arial, sans-serif",
           color: "#333",
-          backgroundColor: "#f4f6f8",
+          backgroundColor: "#f7faf6",
           minHeight: "100vh",
         }}
       >
@@ -125,26 +121,29 @@ function App() {
             flexWrap: "wrap",
             justifyContent: "center",
             alignItems: "center",
-            padding: "10px 20px",
-            backgroundColor: "#fff",
-            borderBottom: "2px solid #ddd",
+            padding: "12px 24px",
+            backgroundColor: "#ffffffee",
+            borderBottom: "2px solid #e2e8f0",
             position: "sticky",
             top: 0,
             zIndex: 10,
-            gap: "6px",
-            transform: showHeader ? "translateY(0)" : "translateY(-110%)",
+            gap: "8px",
+            transform: showHeader ? "translateY(0)" : "translateY(-120%)",
             transition: "transform 0.3s ease-in-out",
+            borderRadius: "0 0 20px 20px",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
           }}
         >
           <img
             src={logo}
             alt="Jersey Raw Logo"
             style={{
-              height: "50px",
-              width: "50px",
+              height: "60px",
+              width: "60px",
               borderRadius: "50%",
               objectFit: "cover",
-              border: "2px solid #2b6e44",
+              border: "3px solid #2b6e44",
+              boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
             }}
           />
           <nav
@@ -156,12 +155,14 @@ function App() {
             }}
           >
             {navItems.map((item, idx) => (
-              <Link key={idx} to={item.path} style={linkStyle}>
-                {item.label.split(" ").map((word, i) => (
-                  <span key={i} style={{ display: "block" }}>
-                    {word}
-                  </span>
-                ))}
+              <Link
+                key={idx}
+                to={item.path}
+                style={linkStyle}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#c9e4d1")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#e6f1ea")}
+              >
+                {item.label}
               </Link>
             ))}
           </nav>
@@ -239,26 +240,11 @@ function App() {
               </div>
             }
           />
-          <Route
-            path="/ingredients"
-            element={<div style={cardStyle}><Ingredients /></div>}
-          />
-          <Route
-            path="/new-to-raw"
-            element={<div style={cardStyle}><NewToRaw /></div>}
-          />
-          <Route
-            path="/about-contact"
-            element={<div style={cardStyle}><AboutContact /></div>}
-          />
-          <Route
-            path="/order"
-            element={<div style={cardStyle}><Order /></div>}
-          />
-          <Route
-            path="/recipes"
-            element={<div style={cardStyle}><FetchRecipes /></div>}
-          />
+          <Route path="/ingredients" element={<div style={cardStyle}><Ingredients /></div>} />
+          <Route path="/new-to-raw" element={<div style={cardStyle}><NewToRaw /></div>} />
+          <Route path="/about-contact" element={<div style={cardStyle}><AboutContact /></div>} />
+          <Route path="/order" element={<div style={cardStyle}><Order /></div>} />
+          <Route path="/recipes" element={<div style={cardStyle}><FetchRecipes /></div>} />
           <Route path="/calculator" element={<Calculator />} />
         </Routes>
 
@@ -270,6 +256,7 @@ function App() {
             backgroundColor: "#2b6e44",
             color: "#fff",
             marginTop: "40px",
+            borderRadius: "20px 20px 0 0",
           }}
         >
           <p>

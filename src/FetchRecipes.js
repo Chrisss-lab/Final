@@ -1,4 +1,5 @@
-import React from "react"; 
+import React from "react";
+import BackgroundImage from "./Photos/Food.jpg"; // make sure this matches your file name
 
 const recipes = [
   {
@@ -97,7 +98,7 @@ const recipes = [
   },
   {
     name: "Alpha Bite Beef",
-    price: 4.00,
+    price: 4.0,
     description:
       "A hearty, protein-packed formula crafted for strength and energy. This blend supports muscle maintenance, strong bones, and overall vitality—perfect for active dogs who love to run, play, and explore. For maximum nutrition and optimal results, this food must be served raw.",
     ingredients: [
@@ -111,8 +112,8 @@ const recipes = [
   },
   {
     name: "Wild Whiskers",
-    price: 5.25, // updated price
-    unit: "0.5 lb", // added unit for display
+    price: 5.25,
+    unit: "0.5 lb",
     description:
       "Give your feline friend the taste of the wild with this nutrient-packed raw blend! Featuring high-quality proteins like chicken, chicken gizzards, beef heart, and beef liver, plus wild-caught salmon and salmon oil for omega fatty acids, this recipe supports a shiny coat, strong muscles, and a healthy heart. Fortified with kelp powder, it promotes optimal digestion and provides essential vitamins and minerals for overall vitality. A wholesome, balanced meal that keeps your cat active, happy, and thriving.",
     ingredients: [
@@ -129,87 +130,111 @@ const recipes = [
 
 function Recipes() {
   return (
-    <section style={{ padding: "40px" }}>
-      <h2
-        style={{
-          textAlign: "center",
-          marginBottom: "40px",
-          color: "#2b6e44",
-        }}
-      >
-        🐾 Our Fresh Raw Dog Food Recipes
-      </h2>
+    <section
+      style={{
+        padding: "40px",
+        minHeight: "100vh",
+        backgroundImage: `url(${BackgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        position: "relative",
+      }}
+    >
+      {/* Dark overlay */}
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill,minmax(320px,1fr))",
-          gap: "25px",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(0,0,0,0.4)",
+          zIndex: 0,
         }}
-      >
-        {recipes.map((recipe, index) => (
-          <article
-            key={index}
-            style={{
-              border: "1px solid #ddd",
-              borderRadius: "12px",
-              padding: "25px",
-              backgroundColor: "#fff",
-              boxShadow: "0 6px 12px rgba(0,0,0,0.1)",
-            }}
-          >
-            <h3
+      ></div>
+
+      {/* Content */}
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <h2
+          style={{
+            textAlign: "center",
+            marginBottom: "40px",
+            color: "#fff",
+          }}
+        >
+          🐾 Our Fresh Raw Dog Food Recipes
+        </h2>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+            gap: "25px",
+          }}
+        >
+          {recipes.map((recipe, index) => (
+            <article
+              key={index}
               style={{
-                margin: "0 0 10px",
-                color: "#2b6e44",
-                fontSize: "1.4rem",
+                borderRadius: "12px",
+                padding: "25px",
+                backgroundColor: "rgba(255,255,255,0.9)",
+                boxShadow: "0 6px 12px rgba(0,0,0,0.2)",
               }}
             >
-              {recipe.name}
-            </h3>
-            <p
-              style={{
-                margin: "0 0 15px",
-                fontSize: "0.95rem",
-                color: "#555",
-              }}
-            >
-              {recipe.description}
-            </p>
-            <div
-              style={{
-                backgroundColor: "#2b6e44",
-                color: "#fff",
-                display: "inline-block",
-                padding: "5px 12px",
-                borderRadius: "20px",
-                fontWeight: "bold",
-                marginBottom: "15px",
-              }}
-            >
-              ${recipe.price.toFixed(2)} / {recipe.unit || "lb"}
-            </div>
-            <h4
-              style={{
-                margin: "15px 0 8px",
-                fontSize: "1rem",
-                fontWeight: "600",
-                color: "#444",
-              }}
-            >
-              Ingredients:
-            </h4>
-            <p
-              style={{
-                fontSize: "0.85rem",
-                lineHeight: "1.4",
-                color: "#333",
-                margin: 0,
-              }}
-            >
-              {recipe.ingredients.join(", ")}
-            </p>
-          </article>
-        ))}
+              <h3
+                style={{
+                  margin: "0 0 10px",
+                  color: "#2b6e44",
+                  fontSize: "1.4rem",
+                }}
+              >
+                {recipe.name}
+              </h3>
+              <p
+                style={{
+                  margin: "0 0 15px",
+                  fontSize: "0.95rem",
+                  color: "#555",
+                }}
+              >
+                {recipe.description}
+              </p>
+              <div
+                style={{
+                  backgroundColor: "#2b6e44",
+                  color: "#fff",
+                  display: "inline-block",
+                  padding: "5px 12px",
+                  borderRadius: "20px",
+                  fontWeight: "bold",
+                  marginBottom: "15px",
+                }}
+              >
+                ${recipe.price.toFixed(2)} / {recipe.unit || "lb"}
+              </div>
+              <h4
+                style={{
+                  margin: "15px 0 8px",
+                  fontSize: "1rem",
+                  fontWeight: "600",
+                  color: "#444",
+                }}
+              >
+                Ingredients:
+              </h4>
+              <p
+                style={{
+                  fontSize: "0.85rem",
+                  lineHeight: "1.4",
+                  color: "#333",
+                  margin: 0,
+                }}
+              >
+                {recipe.ingredients.join(", ")}
+              </p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
