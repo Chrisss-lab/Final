@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Link } from "react-router-dom"; // ✅ FIXED HERE
 
 import Ingredients from "./Ingredients.js";
 import AboutContact from "./AboutContact.js";
@@ -15,7 +15,6 @@ function App() {
   const [showHeader, setShowHeader] = useState(true);
   const [lastScroll, setLastScroll] = useState(0);
 
-  // Hide header when scrolling down
   useEffect(() => {
     const handleScroll = () => {
       const currentScroll = window.scrollY;
@@ -66,10 +65,10 @@ function App() {
   const heroStyle = {
     position: "relative",
     backgroundImage: `url(${logo})`,
-    backgroundSize: "cover", // fills the whole area
+    backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
-    padding: "150px 20px", // more padding to make a large square hero
+    padding: "80px 20px",
     borderRadius: "12px",
     margin: "20px auto",
     maxWidth: "900px",
@@ -84,7 +83,7 @@ function App() {
     left: 0,
     width: "100%",
     height: "100%",
-    backgroundColor: "rgba(0,0,0,0.45)",
+    backgroundColor: "rgba(0,0,0,0.6)",
     borderRadius: "12px",
     zIndex: 1,
   };
@@ -99,9 +98,9 @@ function App() {
     position: "relative",
     maxWidth: "900px",
     margin: "40px auto",
-    padding: "80px 30px",
+    padding: "60px 30px",
     backgroundImage: `url(${bgPhoto})`,
-    backgroundSize: "cover", // full background
+    backgroundSize: "cover",
     backgroundPosition: "center",
     borderRadius: "12px",
     color: "#fff",
@@ -190,7 +189,9 @@ function App() {
               <Link
                 key={idx}
                 to={item.path}
-                style={{ ...linkStyle }}
+                style={{
+                  ...linkStyle,
+                }}
                 onMouseEnter={(e) => {
                   e.target.style.backgroundColor = "#dcefe0";
                   e.target.style.transform = "translateY(-2px)";
@@ -214,7 +215,6 @@ function App() {
             path="/"
             element={
               <div style={{ textAlign: "center" }}>
-                {/* Hero Section */}
                 <div style={heroStyle}>
                   <div style={overlayStyle}></div>
                   <div style={heroTextStyle}>
@@ -243,7 +243,6 @@ function App() {
                   </div>
                 </div>
 
-                {/* Why Choose Jersey Raw */}
                 <div style={textSectionStyle}>
                   <div style={textOverlay}></div>
                   <div style={textContent}>
@@ -295,7 +294,6 @@ function App() {
           <Route path="/calculator" element={<Calculator />} />
         </Routes>
 
-        {/* Footer */}
         <footer
           style={{
             textAlign: "center",

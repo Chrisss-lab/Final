@@ -271,31 +271,7 @@ export default function Calculator() {
               <p><b>Total Needed:</b> {toLbsOz(result.totalNeeded)}</p>
               {species === "cat" && <p><b>Calories per 2 oz:</b> {result.catPer2Oz} kcal</p>}
 
-              {/* ORDER NOW BUTTON */}
-              <div style={{ marginTop: "15px", textAlign: "center" }}>
-                <button
-                  onClick={() => {
-                    if (!selectedMix || !result) return;
-                    const roundedLbs = Math.ceil(result.totalNeeded);
-                    window.location.href = `/order?recipe=${encodeURIComponent(selectedMix)}&weight=${roundedLbs}`;
-                  }}
-                  style={{
-                    padding: "14px",
-                    backgroundColor: "#2b6e44",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "10px",
-                    cursor: "pointer",
-                    fontSize: "1em",
-                    fontWeight: "bold",
-                    width: "100%"
-                  }}
-                  onMouseOver={e => e.currentTarget.style.backgroundColor = "#1f5535"}
-                  onMouseOut={e => e.currentTarget.style.backgroundColor = "#2b6e44"}
-                >
-                  Order Now
-                </button>
-              </div>
+             
             </div>
           )}
 

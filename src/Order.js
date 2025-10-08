@@ -15,7 +15,6 @@ const recipes = [
 
 export default function OrderForm() {
   const location = useLocation();
-  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -25,13 +24,13 @@ export default function OrderForm() {
     notes: ""
   });
 
-  // Grab query params from URL and pre-fill recipe & amount
+  // Pre-fill from calculator link (recipe & weight)
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const recipeParam = params.get("recipe");
-    const amountParam = params.get("weight"); // from Calculator
-    if (recipeParam) setFormData(prev => ({ ...prev, recipe: recipeParam }));
-    if (amountParam) setFormData(prev => ({ ...prev, amount: amountParam }));
+    const amountParam = params.get("weight");
+    if (recipeParam) setFormData((prev) => ({ ...prev, recipe: recipeParam }));
+    if (amountParam) setFormData((prev) => ({ ...prev, amount: amountParam }));
   }, [location.search]);
 
   const inputStyle = {
@@ -62,49 +61,68 @@ export default function OrderForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("https://formspree.io/f/YOUR_FORM_ID", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData)
-    })
-      .then(() => setSubmitted(true))
-      .catch(() => alert("Failed to send order. Please try again."));
+
+    const subject = `New Order Request from ${formData.name} – ${formData.recipe}`;
+    const body = `
+New Order Request
+
+Name: ${formData.name}
+Phone: ${formData.phone}
+Email: ${formData.email}
+Recipe: ${formData.recipe}
+Amount: ${formData.amount} lbs
+Notes: ${formData.notes || "N/A"}
+
+Sent via Jersey Raw Website
+    `;
+
+    const mailtoLink = `mailto:JerseyRawHelp@gmail.com?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailtoLink;
   };
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      padding: "50px 20px",
-      backgroundImage: `url(${BackgroundImage})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      fontFamily: "Arial, sans-serif",
-      position: "relative"
-    }}>
-      {/* Dark overlay */}
-      <div style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(0,0,0,0.25)",
-        zIndex: 0
-      }}></div>
+    <div
+      style={{
+        minHeight: "100vh",
+        padding: "50px 20px",
+        backgroundImage: `url(${BackgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        fontFamily: "Arial, sans-serif",
+        position: "relative"
+      }}
+    >
+      {/* Overlay */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(0,0,0,0.25)",
+          zIndex: 0
+        }}
+      ></div>
 
-      <div style={{
-        position: "relative",
-        zIndex: 1,
-        maxWidth: "520px",
-        width: "100%",
-        padding: "25px 30px",
-        background: "rgba(255,255,255,0.9)",
-        borderRadius: "15px",
-        boxShadow: "0 10px 30px rgba(0,0,0,0.1)"
-      }}>
+      <div
+        style={{
+          position: "relative",
+          zIndex: 1,
+          maxWidth: "520px",
+          width: "100%",
+          padding: "25px 30px",
+          background: "rgba(255,255,255,0.9)",
+          borderRadius: "15px",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.1)"
+        }}
+      >
         <img
           src={logo}
           alt="Logo"
@@ -116,66 +134,101 @@ export default function OrderForm() {
             borderRadius: "50%",
             objectFit: "cover",
             boxShadow: "0 6px 20px rgba(0,0,0,0.3)",
-            transition: "opacity 1.2s",
             opacity: 0.95
           }}
         />
 
-        <h2 style={{ textAlign: "center", color: "#2b6e44", marginBottom: "25px" }}>Place Your Order</h2>
+        <h2
+          style={{
+            textAlign: "center",
+            color: "#2b6e44",
+            marginBottom: "25px"
+          }}
+        >
+          Place Your Order
+        </h2>
 
-        {!submitted ? (
-          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
-            <input type="text" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange} required style={inputStyle} />
-            <input type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} required style={inputStyle} />
-            <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required style={inputStyle} />
+        <form
+          onSubmit={handleSubmit}
+          style={{ display: "flex", flexDirection: "column", gap: "18px" }}
+        >
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            style={inputStyle}
+          />
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Phone Number"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+            style={inputStyle}
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            style={inputStyle}
+          />
 
-            <select name="recipe" value={formData.recipe} onChange={handleChange} required style={inputStyle}>
-              <option value="">-- Select Recipe --</option>
-              {recipes.map(r => <option key={r} value={r}>{r}</option>)}
-            </select>
+          <select
+            name="recipe"
+            value={formData.recipe}
+            onChange={handleChange}
+            required
+            style={inputStyle}
+          >
+            <option value="">-- Select Recipe --</option>
+            {recipes.map((r) => (
+              <option key={r} value={r}>
+                {r}
+              </option>
+            ))}
+          </select>
 
-            <input
-              type="number"
-              name="amount"
-              min="1"
-              step="1"
-              value={formData.amount}
-              onChange={handleChange}
-              required
-              style={inputStyle}
-              placeholder="Amount (lbs)"
-            />
+          <input
+            type="number"
+            name="amount"
+            min="1"
+            step="1"
+            value={formData.amount}
+            onChange={handleChange}
+            required
+            style={inputStyle}
+            placeholder="Amount (lbs)"
+          />
 
-            <textarea
-              name="notes"
-              placeholder="Questions or Allergies (optional)"
-              value={formData.notes}
-              onChange={handleChange}
-              rows={4}
-              style={{ ...inputStyle, resize: "vertical" }}
-            />
+          <textarea
+            name="notes"
+            placeholder="Questions or Allergies (optional)"
+            value={formData.notes}
+            onChange={handleChange}
+            rows={4}
+            style={{ ...inputStyle, resize: "vertical" }}
+          />
 
-            <button type="submit" style={buttonStyle}
-              onMouseOver={e => e.currentTarget.style.backgroundColor = "#1f5535"}
-              onMouseOut={e => e.currentTarget.style.backgroundColor = "#2b6e44"}
-            >
-              Send Order
-            </button>
-          </form>
-        ) : (
-          <div style={{ textAlign: "center", padding: "20px", color: "#2b6e44" }}>
-            <h3>Thank you! Your order has been sent.</h3>
-            <p>We will contact you shortly.</p>
-            <button
-              onClick={() => setSubmitted(false)}
-              style={buttonStyle}
-              onMouseOver={e => e.currentTarget.style.backgroundColor = "#1f5535"}
-              onMouseOut={e => e.currentTarget.style.backgroundColor = "#2b6e44"}
-            >
-              Place Another Order
-            </button>
-          </div>
-        )}
+          <button
+            type="submit"
+            style={buttonStyle}
+            onMouseOver={(e) =>
+              (e.currentTarget.style.backgroundColor = "#1f5535")
+            }
+            onMouseOut={(e) =>
+              (e.currentTarget.style.backgroundColor = "#2b6e44")
+            }
+          >
+            Send Order Email
+          </button>
+        </form>
       </div>
     </div>
   );
