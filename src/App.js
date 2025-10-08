@@ -2,11 +2,11 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import Ingredients from "./Ingredients.js";
-import About from "./About.js";
-import Contact from "./Contact.js";
+import AboutContact from "./AboutContact.js"; // Combined About + Contact
 import Order from "./Order.js";
 import FetchRecipes from "./FetchRecipes.js";
 import Calculator from "./Calculator.js";
+import NewToRaw from "./NewToRaw.js"; // New Tab Component
 
 import logo from "./photo-jersey-raw-logo.jpg";
 
@@ -83,8 +83,9 @@ function App() {
     { label: "Recipes", path: "/recipes" },
     { label: "Order Now", path: "/order" },
     { label: "Food Calculator", path: "/calculator" },
-    { label: "About Us", path: "/about" },
-    { label: "Contact", path: "/contact" },
+    { label: "Our Ingredients", path: "/ingredients" },
+    { label: "New to Raw", path: "/new-to-raw" }, // NEW TAB
+    { label: "About Us / Contact", path: "/about-contact" }, // COMBINED TAB
   ];
 
   return (
@@ -157,8 +158,16 @@ function App() {
                     <h1 style={{ fontSize: "3em" }}>
                       Fresh Made-to-Order Raw Dog Meals in Morris County, NJ
                     </h1>
-                    <p style={{ fontSize: "1.2em", maxWidth: "700px", margin: "10px auto" }}>
-                      Each meal is prepared fresh and tailored to your dog's unique needs using 100% USDA-approved meats and fresh produce.
+                    <p
+                      style={{
+                        fontSize: "1.2em",
+                        maxWidth: "700px",
+                        margin: "10px auto",
+                      }}
+                    >
+                      Each meal is prepared fresh and tailored to your dog's
+                      unique needs using 100% USDA-approved meats and fresh
+                      produce.
                     </p>
                     <div>
                       <Link to="/recipes" style={buttonStyle}>
@@ -175,22 +184,40 @@ function App() {
                 <div style={cardStyle}>
                   <h2>Why Choose Jersey Raw?</h2>
                   <p style={{ fontSize: "1.1em", lineHeight: "1.6" }}>
-                    At Jersey Raw, your dog gets <strong>100% fresh, USDA-approved meats, organs, and produce</strong> — no fillers, artificial ingredients, or preservatives.
+                    At Jersey Raw, your dog gets{" "}
+                    <strong>
+                      100% fresh, USDA-approved meats, organs, and produce
+                    </strong>{" "}
+                    — no fillers, artificial ingredients, or preservatives.
                   </p>
-                  <p style={{ fontSize: "1.1em", lineHeight: "1.6", marginTop: "15px" }}>
-                    Serving Morris County, NJ, our mission is simple: fuel your dog’s health with fresh, safe, and balanced raw meals.
+                  <p
+                    style={{
+                      fontSize: "1.1em",
+                      lineHeight: "1.6",
+                      marginTop: "15px",
+                    }}
+                  >
+                    Serving Morris County, NJ, our mission is simple: fuel your
+                    dog’s health with fresh, safe, and balanced raw meals.
                   </p>
-                  <p style={{ fontSize: "1.1em", lineHeight: "1.6", marginTop: "15px", fontWeight: "bold", color: "#2b6e44" }}>
-                    Orders are picked up in <strong>Morris County, New Jersey</strong> by appointment.  
-                    After submitting your order, you’ll receive a text message to schedule a convenient pickup date and time — with very flexible hours to fit your schedule.
+                  <p
+                    style={{
+                      fontSize: "1.1em",
+                      lineHeight: "1.6",
+                      marginTop: "15px",
+                      fontWeight: "bold",
+                      color: "#2b6e44",
+                    }}
+                  >
+                    Orders are picked up in <strong>Morris County, New Jersey</strong> by appointment. After submitting your order, you’ll receive a text message to schedule a convenient pickup date and time — with very flexible hours to fit your schedule.
                   </p>
                 </div>
               </div>
             }
           />
           <Route path="/ingredients" element={<div style={cardStyle}><Ingredients /></div>} />
-          <Route path="/about" element={<div style={cardStyle}><About /></div>} />
-          <Route path="/contact" element={<div style={cardStyle}><Contact /></div>} />
+          <Route path="/new-to-raw" element={<div style={cardStyle}><NewToRaw /></div>} />
+          <Route path="/about-contact" element={<div style={cardStyle}><AboutContact /></div>} />
           <Route path="/order" element={<div style={cardStyle}><Order /></div>} />
           <Route path="/recipes" element={<div style={cardStyle}><FetchRecipes /></div>} />
           <Route path="/calculator" element={<Calculator />} />
@@ -206,8 +233,14 @@ function App() {
             marginTop: "40px",
           }}
         >
-          <p>&copy; {new Date().getFullYear()} Jersey Raw. Fresh Raw Dog Food in Morris County, NJ.</p>
-          <p>Pickup by appointment with flexible hours. Text confirmation sent after order submission.</p>
+          <p>
+            &copy; {new Date().getFullYear()} Jersey Raw. Fresh Raw Dog Food in
+            Morris County, NJ.
+          </p>
+          <p>
+            Pickup by appointment with flexible hours. Text confirmation sent
+            after order submission.
+          </p>
         </footer>
       </div>
     </Router>
