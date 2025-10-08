@@ -9,16 +9,17 @@ import Calculator from "./Calculator.js";
 import NewToRaw from "./NewToRaw.js";
 
 import logo from "./photo-jersey-raw-logo.jpg";
-import foodHero from "./Photos/Food 4.jpg"; // <-- Correct path to Photos folder
+import bgPhoto from "./Photos/Food 3.jpg";
 
 function App() {
   const [showHeader, setShowHeader] = useState(true);
   const [lastScroll, setLastScroll] = useState(0);
 
+  // Hide header when scrolling down
   useEffect(() => {
     const handleScroll = () => {
       const currentScroll = window.scrollY;
-      setShowHeader(currentScroll < lastScroll || currentScroll < 100);
+      setShowHeader(currentScroll <= lastScroll || currentScroll <= 100);
       setLastScroll(currentScroll);
     };
     window.addEventListener("scroll", handleScroll);
@@ -28,53 +29,53 @@ function App() {
   const linkStyle = {
     textDecoration: "none",
     color: "#2b6e44",
-    fontWeight: "600",
+    fontWeight: "bold",
     padding: "10px 16px",
-    borderRadius: "12px",
+    textAlign: "center",
+    borderRadius: "8px",
     backgroundColor: "#e6f1ea",
     margin: "4px",
     minWidth: "80px",
     display: "inline-block",
-    transition: "all 0.2s",
+    transition: "all 0.25s ease",
   };
 
   const buttonStyle = {
     display: "inline-block",
-    padding: "15px 32px",
+    padding: "15px 30px",
     margin: "15px",
     backgroundColor: "#2b6e44",
     color: "#fff",
     fontSize: "1.2em",
     fontWeight: "bold",
-    borderRadius: "20px",
+    borderRadius: "10px",
     textDecoration: "none",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-    transition: "all 0.2s",
+    transition: "all 0.25s ease",
   };
 
   const cardStyle = {
     maxWidth: "900px",
     margin: "30px auto",
-    padding: "30px",
-    backgroundColor: "#ffffffdd",
-    borderRadius: "20px",
-    boxShadow: "0 6px 18px rgba(0,0,0,0.1)",
+    padding: "25px",
+    backgroundColor: "#ffffffcc",
+    borderRadius: "12px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
     textAlign: "center",
   };
 
   const heroStyle = {
     position: "relative",
-    backgroundImage: `url(${foodHero})`,
-    backgroundSize: "cover",
+    backgroundImage: `url(${logo})`,
+    backgroundSize: "cover", // fills the whole area
+    backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
-    padding: "80px 20px",
-    borderRadius: "20px",
+    padding: "150px 20px", // more padding to make a large square hero
+    borderRadius: "12px",
     margin: "20px auto",
     maxWidth: "900px",
     color: "#fff",
     textAlign: "center",
     overflow: "hidden",
-    boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
   };
 
   const overlayStyle = {
@@ -83,15 +84,47 @@ function App() {
     left: 0,
     width: "100%",
     height: "100%",
-    background: "linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6))",
-    borderRadius: "20px",
+    backgroundColor: "rgba(0,0,0,0.45)",
+    borderRadius: "12px",
     zIndex: 1,
   };
 
   const heroTextStyle = {
     position: "relative",
     zIndex: 2,
-    textShadow: "1px 1px 8px rgba(0,0,0,0.9)",
+    textShadow: "1px 1px 6px rgba(0,0,0,0.8)",
+  };
+
+  const textSectionStyle = {
+    position: "relative",
+    maxWidth: "900px",
+    margin: "40px auto",
+    padding: "80px 30px",
+    backgroundImage: `url(${bgPhoto})`,
+    backgroundSize: "cover", // full background
+    backgroundPosition: "center",
+    borderRadius: "12px",
+    color: "#fff",
+    boxShadow: "0 6px 18px rgba(0,0,0,0.3)",
+    textAlign: "center",
+    overflow: "hidden",
+  };
+
+  const textOverlay = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.55)",
+    borderRadius: "12px",
+    zIndex: 1,
+  };
+
+  const textContent = {
+    position: "relative",
+    zIndex: 2,
+    textShadow: "2px 2px 8px rgba(0,0,0,0.7)",
   };
 
   const navItems = [
@@ -108,42 +141,41 @@ function App() {
     <Router>
       <div
         style={{
-          fontFamily: "'Poppins', Arial, sans-serif",
+          fontFamily: "Arial, sans-serif",
           color: "#333",
-          backgroundColor: "#f7faf6",
+          backgroundColor: "#f4f6f8",
           minHeight: "100vh",
         }}
       >
-        {/* Header Navigation */}
+        {/* Header */}
         <header
           style={{
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "center",
             alignItems: "center",
-            padding: "12px 24px",
+            padding: "12px 20px",
             backgroundColor: "#ffffffee",
-            borderBottom: "2px solid #e2e8f0",
+            borderBottom: "2px solid #ddd",
             position: "sticky",
             top: 0,
             zIndex: 10,
             gap: "8px",
-            transform: showHeader ? "translateY(0)" : "translateY(-120%)",
+            transform: showHeader ? "translateY(0)" : "translateY(-110%)",
             transition: "transform 0.3s ease-in-out",
-            borderRadius: "0 0 20px 20px",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
           }}
         >
           <img
             src={logo}
             alt="Jersey Raw Logo"
             style={{
-              height: "60px",
-              width: "60px",
+              height: "55px",
+              width: "55px",
               borderRadius: "50%",
               objectFit: "cover",
-              border: "3px solid #2b6e44",
-              boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+              border: "2px solid #2b6e44",
+              marginRight: "10px",
             }}
           />
           <nav
@@ -151,16 +183,24 @@ function App() {
               display: "flex",
               flexWrap: "wrap",
               justifyContent: "center",
-              gap: "6px",
+              gap: "8px",
             }}
           >
             {navItems.map((item, idx) => (
               <Link
                 key={idx}
                 to={item.path}
-                style={linkStyle}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#c9e4d1")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#e6f1ea")}
+                style={{ ...linkStyle }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = "#dcefe0";
+                  e.target.style.transform = "translateY(-2px)";
+                  e.target.style.boxShadow = "0 3px 6px rgba(0,0,0,0.1)";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = "#e6f1ea";
+                  e.target.style.transform = "translateY(0)";
+                  e.target.style.boxShadow = "none";
+                }}
               >
                 {item.label}
               </Link>
@@ -168,26 +208,27 @@ function App() {
           </nav>
         </header>
 
-        {/* Page Routes */}
+        {/* Routes */}
         <Routes>
           <Route
             path="/"
             element={
               <div style={{ textAlign: "center" }}>
+                {/* Hero Section */}
                 <div style={heroStyle}>
                   <div style={overlayStyle}></div>
                   <div style={heroTextStyle}>
-                    <h1 style={{ fontSize: "3em" }}>
+                    <h1 style={{ fontSize: "2.8em" }}>
                       Fresh Made-to-Order Raw Dog Meals in Morris County, NJ
                     </h1>
                     <p
                       style={{
                         fontSize: "1.2em",
                         maxWidth: "700px",
-                        margin: "10px auto",
+                        margin: "10px auto 20px",
                       }}
                     >
-                      Each meal is prepared fresh and tailored to your dog's
+                      Each meal is prepared fresh and tailored to your dog’s
                       unique needs using 100% USDA-approved meats and fresh
                       produce.
                     </p>
@@ -202,40 +243,46 @@ function App() {
                   </div>
                 </div>
 
-                <div style={cardStyle}>
-                  <h2>Why Choose Jersey Raw?</h2>
-                  <p style={{ fontSize: "1.1em", lineHeight: "1.6" }}>
-                    At Jersey Raw, your dog gets{" "}
-                    <strong>
-                      100% fresh, USDA-approved meats, organs, and produce
-                    </strong>{" "}
-                    — no fillers, artificial ingredients, or preservatives.
-                  </p>
-                  <p
-                    style={{
-                      fontSize: "1.1em",
-                      lineHeight: "1.6",
-                      marginTop: "15px",
-                    }}
-                  >
-                    Serving Morris County, NJ, our mission is simple: fuel your
-                    dog’s health with fresh, safe, and balanced raw meals.
-                  </p>
-                  <p
-                    style={{
-                      fontSize: "1.1em",
-                      lineHeight: "1.6",
-                      marginTop: "15px",
-                      fontWeight: "bold",
-                      color: "#2b6e44",
-                    }}
-                  >
-                    Orders are picked up in{" "}
-                    <strong>Morris County, New Jersey</strong> by appointment.
-                    After submitting your order, you’ll receive a text message
-                    to schedule a convenient pickup date and time — with very
-                    flexible hours to fit your schedule.
-                  </p>
+                {/* Why Choose Jersey Raw */}
+                <div style={textSectionStyle}>
+                  <div style={textOverlay}></div>
+                  <div style={textContent}>
+                    <h2 style={{ fontSize: "2em", marginBottom: "20px" }}>
+                      Why Choose Jersey Raw?
+                    </h2>
+                    <p style={{ fontSize: "1.1em", lineHeight: "1.7" }}>
+                      At Jersey Raw, your dog gets{" "}
+                      <strong>
+                        100% fresh, USDA-approved meats, organs, and produce
+                      </strong>{" "}
+                      — no fillers, artificial ingredients, or preservatives.
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "1.1em",
+                        lineHeight: "1.7",
+                        marginTop: "15px",
+                      }}
+                    >
+                      Serving Morris County, NJ, our mission is simple: fuel
+                      your dog’s health with fresh, safe, and balanced raw
+                      meals.
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "1.1em",
+                        lineHeight: "1.7",
+                        marginTop: "15px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Orders are picked up in{" "}
+                      <strong>Morris County, New Jersey</strong> by appointment.
+                      After submitting your order, you’ll receive a text to
+                      schedule a convenient pickup date and time — with flexible
+                      hours to fit your schedule.
+                    </p>
+                  </div>
                 </div>
               </div>
             }
@@ -256,12 +303,11 @@ function App() {
             backgroundColor: "#2b6e44",
             color: "#fff",
             marginTop: "40px",
-            borderRadius: "20px 20px 0 0",
           }}
         >
           <p>
-            &copy; {new Date().getFullYear()} Jersey Raw. Fresh Raw Dog Food
-            in Morris County, NJ.
+            &copy; {new Date().getFullYear()} Jersey Raw — Fresh Raw Dog Food in
+            Morris County, NJ.
           </p>
           <p>
             Pickup by appointment with flexible hours. Text confirmation sent

@@ -19,7 +19,7 @@ function About() {
         padding: "60px 20px",
       }}
     >
-      {/* Overlay */}
+      {/* Dark overlay for readability */}
       <div
         style={{
           position: "absolute",
@@ -27,20 +27,21 @@ function About() {
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundColor: "rgba(0,0,0,0.7)",
+          backgroundColor: "rgba(0,0,0,0.75)",
         }}
       />
 
-      {/* Content */}
+      {/* Main content */}
       <article
         style={{
           position: "relative",
           zIndex: 1,
           maxWidth: "850px",
-          backgroundColor: "rgba(0,0,0,0.45)",
+          backgroundColor: "rgba(0,0,0,0.55)",
           padding: "40px",
           borderRadius: "14px",
           textAlign: "center",
+          boxShadow: "0 6px 18px rgba(0,0,0,0.6)",
         }}
       >
         <h1
@@ -52,6 +53,7 @@ function About() {
         >
           About Jersey Raw
         </h1>
+
         <img
           src={logo}
           alt="Jersey Raw Logo"
@@ -115,6 +117,54 @@ function About() {
           owners who care. Thank you for trusting us to nourish your furry
           family members with the very best.
         </p>
+
+        {/* Contact Section */}
+        <div
+          style={{
+            marginTop: "40px",
+            paddingTop: "25px",
+            borderTop: "2px solid rgba(255,255,255,0.3)",
+          }}
+        >
+          <h2
+            style={{
+              fontSize: "1.8rem",
+              marginBottom: "10px",
+              textShadow: "2px 2px 8px rgba(0,0,0,0.85)",
+            }}
+          >
+            Contact Us
+          </h2>
+          <p style={{ fontSize: "1.1rem", margin: "10px 0" }}>
+            Have questions or need help placing an order?
+          </p>
+          <p style={{ fontSize: "1.2rem", margin: "10px 0" }}>
+            📧{" "}
+            <a
+              href="mailto:JerseyRawHelp@gmail.com"
+              style={{
+                color: "#b9f6ca",
+                textDecoration: "none",
+                fontWeight: "bold",
+              }}
+            >
+              JerseyRawHelp@gmail.com
+            </a>
+          </p>
+          <p style={{ fontSize: "1.2rem", margin: "10px 0" }}>
+            📱{" "}
+            <a
+              href="sms:+19735322247"
+              style={{
+                color: "#b9f6ca",
+                textDecoration: "none",
+                fontWeight: "bold",
+              }}
+            >
+              973-532-2247
+            </a>
+          </p>
+        </div>
       </article>
     </section>
   );
