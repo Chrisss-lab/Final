@@ -1,16 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import Ingredients from "./Ingredients.js";
-import AboutContact from "./AboutContact.js"; // Combined About + Contact
+import AboutContact from "./AboutContact.js";
 import Order from "./Order.js";
 import FetchRecipes from "./FetchRecipes.js";
 import Calculator from "./Calculator.js";
-import NewToRaw from "./NewToRaw.js"; // New Tab Component
+import NewToRaw from "./NewToRaw.js";
 
 import logo from "./photo-jersey-raw-logo.jpg";
 
 function App() {
+  const [showHeader, setShowHeader] = useState(true);
+  const [lastScroll, setLastScroll] = useState(0);
+
+  // Detect scroll direction to hide/show header
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll > lastScroll && currentScroll > 100) {
+        // scrolling down
+        setShowHeader(false);
+      } else {
+        // scrolling up
+        setShowHeader(true);
+      }
+      setLastScroll(currentScroll);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScroll]);
+
   const linkStyle = {
     textDecoration: "none",
     color: "#2b6e44",
@@ -84,8 +104,8 @@ function App() {
     { label: "Order Now", path: "/order" },
     { label: "Food Calculator", path: "/calculator" },
     { label: "Our Ingredients", path: "/ingredients" },
-    { label: "New to Raw", path: "/new-to-raw" }, // NEW TAB
-    { label: "About Us / Contact", path: "/about-contact" }, // COMBINED TAB
+    { label: "New to Raw", path: "/new-to-raw" },
+    { label: "About Us / Contact", path: "/about-contact" },
   ];
 
   return (
@@ -112,11 +132,13 @@ function App() {
             top: 0,
             zIndex: 10,
             gap: "6px",
+            transform: showHeader ? "translateY(0)" : "translateY(-110%)",
+            transition: "transform 0.3s ease-in-out",
           }}
         >
           <img
             src={logo}
-            alt="Jersey Raw Logo - Fresh Raw Dog Food in Morris County NJ"
+            alt="Jersey Raw Logo"
             style={{
               height: "50px",
               width: "50px",
@@ -151,7 +173,6 @@ function App() {
             path="/"
             element={
               <div style={{ textAlign: "center" }}>
-                {/* Hero Section */}
                 <div style={heroStyle}>
                   <div style={overlayStyle}></div>
                   <div style={heroTextStyle}>
@@ -180,7 +201,6 @@ function App() {
                   </div>
                 </div>
 
-                {/* About Section */}
                 <div style={cardStyle}>
                   <h2>Why Choose Jersey Raw?</h2>
                   <p style={{ fontSize: "1.1em", lineHeight: "1.6" }}>
@@ -209,17 +229,36 @@ function App() {
                       color: "#2b6e44",
                     }}
                   >
-                    Orders are picked up in <strong>Morris County, New Jersey</strong> by appointment. After submitting your order, you’ll receive a text message to schedule a convenient pickup date and time — with very flexible hours to fit your schedule.
+                    Orders are picked up in{" "}
+                    <strong>Morris County, New Jersey</strong> by appointment.
+                    After submitting your order, you’ll receive a text message
+                    to schedule a convenient pickup date and time — with very
+                    flexible hours to fit your schedule.
                   </p>
                 </div>
               </div>
             }
           />
-          <Route path="/ingredients" element={<div style={cardStyle}><Ingredients /></div>} />
-          <Route path="/new-to-raw" element={<div style={cardStyle}><NewToRaw /></div>} />
-          <Route path="/about-contact" element={<div style={cardStyle}><AboutContact /></div>} />
-          <Route path="/order" element={<div style={cardStyle}><Order /></div>} />
-          <Route path="/recipes" element={<div style={cardStyle}><FetchRecipes /></div>} />
+          <Route
+            path="/ingredients"
+            element={<div style={cardStyle}><Ingredients /></div>}
+          />
+          <Route
+            path="/new-to-raw"
+            element={<div style={cardStyle}><NewToRaw /></div>}
+          />
+          <Route
+            path="/about-contact"
+            element={<div style={cardStyle}><AboutContact /></div>}
+          />
+          <Route
+            path="/order"
+            element={<div style={cardStyle}><Order /></div>}
+          />
+          <Route
+            path="/recipes"
+            element={<div style={cardStyle}><FetchRecipes /></div>}
+          />
           <Route path="/calculator" element={<Calculator />} />
         </Routes>
 
@@ -234,8 +273,8 @@ function App() {
           }}
         >
           <p>
-            &copy; {new Date().getFullYear()} Jersey Raw. Fresh Raw Dog Food in
-            Morris County, NJ.
+            &copy; {new Date().getFullYear()} Jersey Raw. Fresh Raw Dog Food
+            in Morris County, NJ.
           </p>
           <p>
             Pickup by appointment with flexible hours. Text confirmation sent
