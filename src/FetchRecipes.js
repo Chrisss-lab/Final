@@ -20,6 +20,26 @@ const recipes = [
     ],
   },
   {
+    name: "Wild Balance",
+    price: 7.99,
+    description:
+      "A perfect balance of land and sea—Wild Balance brings together premium proteins like chicken, beef heart, and wild-caught salmon with nourishing whole foods such as pumpkin, blueberries, and kelp. Infused with bone broth powder and salmon oil, it supports strong muscles, joint health, and a glowing coat. Designed to deliver complete nutrition and harmony in every bite. For best results, this food must be served raw.",
+    ingredients: [
+      "Chicken",
+      "Beef Heart",
+      "Wild Caught Salmon",
+      "Bone Broth Powder (grass-fed)",
+      "Eggs",
+      "Chicken Gizzards",
+      "Pumpkin",
+      "Blueberries",
+      "Beef Liver",
+      "Kelp Powder",
+      "Calcium Shells",
+      "Salmon Oil",
+    ],
+  },
+  {
     name: "Royal Carnivore",
     price: 12.99,
     description:
