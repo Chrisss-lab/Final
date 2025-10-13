@@ -23,7 +23,7 @@ const dogFeedingPercent = {
   "Pekingese": 3.3, "Pointer": 2.5, "Staffordshire Bull Terrier": 2.8, "Welsh Corgi Pembroke": 2.9,
   "Welsh Corgi Cardigan": 2.9, "Chinese Crested": 3.4, "Japanese Chin": 3.5, "Italian Greyhound": 3.3,
   "Brussels Griffon": 3.4, "Dogo Argentino": 2.2, "Belgian Malinois": 2.4, "Belgian Tervuren": 2.4,
-  "Belgian Sheepdog": 2.4, "Belgian Laekenois": 2.4, "Black Russian Terrier": 2.1, "Borzoi": 2.0,
+  "Belgian Sheepdog": 2.4, "Pit": 2.9, "Belgian Laekenois": 2.4, "Black Russian Terrier": 2.1, "Borzoi": 2.0,
   "Canaan Dog": 2.5, "Cardigan Welsh Corgi": 2.9, "Catalburun": 2.6, "Clumber Spaniel": 2.5, "Curly-Coated Retriever": 2.6,
   "English Foxhound": 2.7, "English Toy Spaniel": 3.3, "Field Spaniel": 2.8, "Finnish Hound": 2.5,
   "Flat-Coated Retriever": 2.7, "German Pinscher": 2.7, "Glen of Imaal Terrier": 3.1, "Harrier": 2.6,
