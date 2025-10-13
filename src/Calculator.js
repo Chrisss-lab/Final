@@ -65,11 +65,13 @@ const catBreeds = Object.keys(catFeedingPercent).map(name => ({ name }));
 
 // Recipes
 const recipes = [
-  { name: "Royal Carnivore", caloriesPerLb: 1500 },
-  { name: "Daily Thrive", caloriesPerLb: 1450 },
-  { name: "Puppy", caloriesPerLb: 1550 },
-  { name: "Joint", caloriesPerLb: 1400 },
-  { name: "Alpha Bite Beef Mix", caloriesPerLb: 1250 },
+  { name: "Royal Carnivore", caloriesPerLb: 1297 },
+  { name: "Wild Balance", caloriesPerLb: 1298 },
+  { name: "Daily Thrive", caloriesPerLb: 1047 },
+  { name: "Growing Paws Puppy", caloriesPerLb: 1058 },
+  { name: "Joint Care Blend", caloriesPerLb: 1102 },
+  { name: "Wild Whiskers", caloriesPerLb: 1252 },
+  { name: "Alpha Bite Beef Mix", caloriesPerLb: 1039 },
 ];
 
 // Activity & goal multipliers
