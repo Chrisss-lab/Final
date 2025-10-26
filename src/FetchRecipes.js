@@ -178,106 +178,11 @@ function Recipes() {
   const puppyRef = useRef(null);
   const specialtyRef = useRef(null);
 
-  const scrollToSection = (ref) =>
-    ref.current.scrollIntoView({ behavior: "smooth" });
-
-  const renderRecipes = (category) =>
-    recipes
-      .filter((r) => r.category === category)
-      .map((recipe, index) => (
-        <article
-          key={index}
-          style={{
-            borderRadius: "12px",
-            padding: "25px",
-            backgroundColor: "rgba(255,255,255,0.9)",
-            boxShadow: "0 6px 12px rgba(0,0,0,0.2)",
-          }}
-        >
-          <h3
-            style={{
-              margin: "0 0 10px",
-              color: "#2b6e44",
-              fontSize: "1.4rem",
-            }}
-          >
-            {recipe.name}
-          </h3>
-          <p
-            style={{
-              margin: "0 0 15px",
-              fontSize: "0.95rem",
-              color: "#555",
-            }}
-          >
-            {recipe.description}
-          </p>
-          <div
-            style={{
-              backgroundColor: "#2b6e44",
-              color: "#fff",
-              display: "inline-block",
-              padding: "5px 12px",
-              borderRadius: "20px",
-              fontWeight: "bold",
-              marginBottom: "15px",
-            }}
-          >
-            ${recipe.price.toFixed(2)} / {recipe.unit || "lb"}
-          </div>
-          <h4
-            style={{
-              margin: "15px 0 8px",
-              fontSize: "1rem",
-              fontWeight: "600",
-              color: "#444",
-            }}
-          >
-            Ingredients:
-          </h4>
-          <p
-            style={{
-              fontSize: "0.85rem",
-              lineHeight: "1.4",
-              color: "#333",
-              margin: 0,
-            }}
-          >
-            {recipe.ingredients.join(", ")}
-          </p>
-        </article>
-      ));
-
-  return (
-    <section
-      style={{
-        padding: "40px",
-        minHeight: "100vh",
-        backgroundImage: `url(${BackgroundImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        position: "relative",
-      }}
-    >
-      {/*import React, { useRef } from "react";
-import BackgroundImage from "./Photos/Food.jpg";
-
-const recipes = [
-  // Adult
-  { /* ...your adult recipes here... */ },
-  // Puppy
-  { /* ...your puppy recipes here... */ },
-  // Specialty
-  { /* ...your specialty recipes here... */ },
-];
-
-function Recipes() {
-  const adultRef = useRef(null);
-  const puppyRef = useRef(null);
-  const specialtyRef = useRef(null);
-
-  const scrollToSection = (ref) =>
-    ref.current.scrollIntoView({ behavior: "smooth" });
+  const scrollToSection = (ref) => {
+    if (ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const renderRecipes = (category) =>
     recipes
