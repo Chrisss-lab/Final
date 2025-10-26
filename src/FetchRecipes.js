@@ -78,7 +78,7 @@ const recipes = [
   },
   {
     name: "Puppy Thrive",
-    price: 4.25,
+    price: 4.99,
     description:
       "Premium growth-focused puppy food featuring chicken, chicken gizzards, eggs, Greek yogurt, and goat milk powder for optimal protein, calcium, and digestibility. Packed with pumpkin, carrots, salmon oil, and kelp powder, it supports strong bones, lean muscle, a healthy coat, and overall vitality. Designed specifically for puppies, this formula must be served raw.",
     ingredients: [
