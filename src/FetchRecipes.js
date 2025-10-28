@@ -121,23 +121,8 @@ const recipes = [
       "Coconut Oil",
     ],
   },
-  {
-    name: "Golden Years Senior",
-    price: 3.99,
-    category: "specialty",
-    description:
-      "Give your senior dog the comfort and vitality they deserve. This blend supports joint health, gentle digestion, and sustained energy, helping your older companion stay active, happy, and full of life every day. For best results and optimal nutrition, this food must be served raw.",
-    ingredients: [
-      "Chicken",
-      "Beef Liver",
-      "Eggs",
-      "Greek Yogurt",
-      "Cottage Cheese",
-      "Carrots",
-      "Salmon Oil",
-      "Kelp Powder",
-    ],
-  },
+
+  
   {
     name: "Fetch and Feast Chicken",
     price: 2.25,
