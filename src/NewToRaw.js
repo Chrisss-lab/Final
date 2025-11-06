@@ -21,7 +21,7 @@ function NewToRaw() {
     backgroundRepeat: "no-repeat",
     backgroundAttachment: "fixed",
     backgroundBlendMode: "lighten",
-    backgroundColor: "rgba(255,255,255,0.85)", // semi-transparent overlay
+    backgroundColor: "rgba(255,255,255,0.85)",
     zIndex: 1,
   };
 
@@ -32,7 +32,6 @@ function NewToRaw() {
   };
 
   const sectionStyle = { marginBottom: "50px" };
-
   const imgContainer = {
     display: "flex",
     flexWrap: "wrap",
@@ -40,7 +39,6 @@ function NewToRaw() {
     gap: "20px",
     margin: "30px 0",
   };
-
   const imgStyle = {
     flex: "1 1 300px",
     maxWidth: "45%",
@@ -48,9 +46,7 @@ function NewToRaw() {
     boxShadow: "0 6px 15px rgba(0,0,0,0.1)",
     transition: "transform 0.3s",
   };
-
   const listStyle = { marginBottom: "20px", paddingLeft: "20px" };
-
   const sectionDivider = { height: "2px", backgroundColor: "#e0e0e0", margin: "50px 0" };
 
   return (
@@ -75,7 +71,6 @@ function NewToRaw() {
         <li><strong>Dental Health:</strong> Chewing raw meaty bones helps clean teeth naturally.</li>
       </ul>
 
-      {/* Images Section */}
       <div style={imgContainer}>
         <img src={dogBowlChicken} alt="Chicken dog bowl accent" style={imgStyle} />
         <img src={dogBowlSalmon} alt="Salmon dog bowl accent" style={imgStyle} />
@@ -114,6 +109,30 @@ function NewToRaw() {
         <div style={imgContainer}>
           <img src={wholeFoodsVsKibble} alt="Whole Foods vs Kibble accent" style={imgStyle} />
         </div>
+      </div>
+
+      {/* 🥩 New Section: Container Sizes */}
+      <div style={sectionStyle}>
+        <h2 style={headerStyle}>Our Food Container Sizes</h2>
+        <p>
+          We package our meals in convenient portion sizes to make feeding and storing simple.
+          Each container type is designed to match your pet’s needs — from small servings for cats
+          to family-sized logs for multi-dog homes.
+        </p>
+
+        <ul style={listStyle}>
+          <li>
+            <strong>1 lb Tubs:</strong> These clear, deli-style tubs make raw feeding effortless. They’re the most convenient choice — quick to thaw, simple to portion, and easy to organize in your fridge.
+          </li>
+          <li>
+    <strong>2 lb Meat Logs:</strong> Sealed in durable plastic packaging like ground beef
+            at the grocery store. Ideal for larger dogs or bulk feeders. Just slice off what you
+            need and keep the rest frozen.
+          </li>
+          <li>
+            <strong>2 oz Tubs:</strong> These small, sauce-style cups are perfect for precise, mess-free feeding. They keep each portion fresh and make serving effortless — great for smaller meals or variety packs.
+          </li>
+        </ul>
       </div>
 
       <div style={sectionStyle}>
