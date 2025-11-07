@@ -97,10 +97,8 @@ function NewToRaw() {
       <div style={sectionDivider}></div>
 
       <div style={sectionStyle}>
-        <h2 style={headerStyle}>Whole Foods vs Synthetic Vitamins</h2>
         <p>
-    Many commercial pet foods — including kibble, some raw blends, and other store-bought options — rely on synthetic vitamin and mineral mixes to “complete” the diet. While these supplements meet label requirements, they aren’t absorbed as efficiently as nutrients from whole foods, limiting their real benefit.
-
+   
 <div>
   <h2 style={{ color: "#2c6f44", textAlign: "center", margin: "30px 0" }}>
     Whole Foods vs Synthetic Vitamins
@@ -171,15 +169,17 @@ function NewToRaw() {
         </ul>
       </div>
 
-      <div style={sectionStyle}>
-        <h2 style={headerStyle}>Practical Feeding Tips</h2>
-        <ul style={listStyle}>
-          <li>Include a mix of muscle meat, organs, bones, and vegetables.</li>
-          <li>Introduce new proteins gradually.</li>
-          <li>Monitor weight, stool, and energy levels.</li>
-          <li>Keep feeding areas clean and organized.</li>
-        </ul>
-      </div>
+<div style={sectionStyle}>
+  <h2 style={headerStyle}>Practical Feeding Tips</h2>
+  <ul style={listStyle}>
+    <li>Introduce new proteins gradually to prevent digestive upset.</li>
+    <li>Watch your dog’s weight, stool, and energy to adjust portions as needed.</li>
+    <li>Feed in a clean, organized area to make mealtime safe and stress-free.</li>
+    <li>Portion meals according to your dog’s needs and freezer storage, using 1 lb tubs, 2 lb logs, or 2 oz containers.</li>
+    <li>Keep a consistent feeding schedule to support digestion and overall wellness.</li>
+  </ul>
+</div>
+
 
       <div style={sectionStyle}>
         <h2 style={headerStyle}>Why Raw Is Natural</h2>
