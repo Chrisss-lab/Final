@@ -12,7 +12,7 @@ const recipes = [
   { name: "Alpha Bite Beef", price: 6.0 },
   { name: "Wild Balance", price: 7.99 },
   { name: "Fetch and Feast Chicken", price: 2.25 },
-  { name: "Wild Whiskers", price: 5.25 },
+  { name: "Wild Whiskers", price: 10.5 },
 ];
 
 export default function OrderForm() {
