@@ -78,7 +78,7 @@ function NewToRaw() {
 
       <div style={sectionStyle}>
         <h2 style={headerStyle}>New to Raw Feeding?</h2>
-        <p>
+       Switching to a raw diet is simple and natural. Dogs evolved to eat raw meats, and their strong stomach acid protects them from bacteria, making their bodies well-equipped for fresh, whole foods. With a gradual transition, your dog will adjust easily and enjoy every nutrient-packed meal. <p>
           Switching to a raw diet doesn’t have to be intimidating. Raw feeding focuses
           on fresh, whole ingredients, and your dog’s body is built to handle it safely.
           With a gradual approach, your dog will enjoy the transition naturally.
@@ -99,12 +99,38 @@ function NewToRaw() {
       <div style={sectionStyle}>
         <h2 style={headerStyle}>Whole Foods vs Synthetic Vitamins</h2>
         <p>
-          Many commercial kibble brands rely on artificial vitamins and supplements.
-          While these vitamins are added to meet nutritional labels, they are not absorbed
-          as efficiently by the body. At Jersey Raw, we provide all essential nutrients
-          through whole foods — beef, liver, heart, eggs, and fresh vegetables. Nutrients
-          in whole foods are naturally more bioavailable, meaning your dog absorbs and
-          uses them better, supporting stronger health and longevity.
+    Many commercial pet foods — including kibble, some raw blends, and other store-bought options — rely on synthetic vitamin and mineral mixes to “complete” the diet. While these supplements meet label requirements, they aren’t absorbed as efficiently as nutrients from whole foods, limiting their real benefit.
+
+<div>
+  <h2 style={{ color: "#2c6f44", textAlign: "center", margin: "30px 0" }}>
+    Whole Foods vs Synthetic Vitamins
+  </h2>
+  <ul style={{ paddingLeft: "20px", lineHeight: 1.6 }}>
+    <li>
+      Many store-bought foods use synthetic vitamins and minerals to “complete” the diet. 
+      These are added to meet labels, but your dog’s body doesn’t absorb them as well.
+    </li>
+    <li>
+      Bioavailability matters: nutrients in whole foods are easier for the body to absorb, 
+      use, and store. Whole animal ingredients deliver vitamins, minerals, and amino acids naturally, 
+      so your dog gets the full benefit.
+    </li>
+    <li>
+      At Jersey Raw, all nutrients come from real foods — beef, liver, heart, eggs, and fresh vegetables. 
+      Nothing synthetic, nothing filler.
+    </li>
+    <li>
+      Whole ingredients provide a complete package: protein, fats, minerals, and vitamins work together 
+      like nature intended, supporting strong immunity, shiny coat, energy, and overall vitality.
+    </li>
+    <li>
+      This approach mirrors what dogs were evolved and selectively bred to eat — raw, whole animal foods, 
+      not grains or artificial additives.
+    </li>
+  </ul>
+</div>
+
+
         </p>
         <div style={imgContainer}>
           <img src={wholeFoodsVsKibble} alt="Whole Foods vs Kibble accent" style={imgStyle} />
@@ -158,9 +184,7 @@ function NewToRaw() {
       <div style={sectionStyle}>
         <h2 style={headerStyle}>Why Raw Is Natural</h2>
         <p>
-          Dogs evolved to eat raw, whole foods. Their digestive system is designed to
-          handle raw meat, bones, and organs. Raw food is safe, natural, and extremely
-          beneficial — far superior to kibble or other processed foods.
+          Dogs are born to thrive on raw, whole foods — their bodies are perfectly designed to digest fresh meat, organs, and bones. With higher stomach acid and an evolved digestive system, they safely handle raw proteins and absorb nutrients far more effectively than from processed diets. Feeding raw provides complete, natural nourishment that supports energy, vitality, strong immunity, and long-term health. This is not just food — it’s what dogs were selectively bred to eat, giving them the chance to flourish the way nature intended.
         </p>
         <div style={imgContainer}>
           <img src={whyRawIsNatural} alt="Why Raw Is Natural accent" style={imgStyle} />
