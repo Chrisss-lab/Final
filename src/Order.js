@@ -26,11 +26,19 @@ export default function OrderForm() {
     container: "1 lb tub",
     amount: "",
     notes: "",
-    coupon: "",  // coupon field
+    coupon: "",
   });
 
-  const [totals, setTotals] = useState({ subtotal: 0, tax: 0, total: 0 });
+  const [totals, setTotals] = useState({
+    subtotal: 0,
+    originalSubtotal: 0,
+    tax: 0,
+    total: 0,
+    savings: 0,
+  });
+  const [discount, setDiscount] = useState({ percent: 0, message: "" });
   const [warning, setWarning] = useState("");
+  const [fade, setFade] = useState(false);
   const TAX_RATE = 0.06625;
 
   const inputStyle = {
@@ -61,19 +69,19 @@ export default function OrderForm() {
     const amountParam = params.get("weight");
     if (recipeParam) setFormData((prev) => ({ ...prev, recipe: recipeParam }));
     if (amountParam)
-      setFormData((prev) => ({ ...prev, amount: Math.floor(Number(amountParam)) }));
+      setFormData((prev) => ({
+        ...prev,
+        amount: Math.floor(Number(amountParam)),
+      }));
   }, [location.search]);
 
   const handleChange = (e) => {
     let { name, value } = e.target;
-
-    if (name === "amount") {
-      value = value.replace(/\D/g, "");
-    }
-
+    if (name === "amount") value = value.replace(/\D/g, "");
     setFormData({ ...formData, [name]: value });
   };
 
+  // 🔢 Calculate totals
   useEffect(() => {
     const selectedRecipe = recipes.find((r) => r.name === formData.recipe);
     const pricePerLb = selectedRecipe ? selectedRecipe.price : 0;
@@ -83,7 +91,8 @@ export default function OrderForm() {
       if (formData.container === "2 lb meat chubs" && lbs % 2 !== 0) {
         setWarning("Amount must be divisible by 2 for 2 lb meat chubs.");
       } else if (
-        (formData.container === "1 lb tub" || formData.container === "2 oz tub (Cat Food)") &&
+        (formData.container === "1 lb tub" ||
+          formData.container === "2 oz tub (Cat Food)") &&
         !Number.isInteger(lbs)
       ) {
         setWarning("Amount must be a whole number.");
@@ -94,25 +103,75 @@ export default function OrderForm() {
       setWarning("");
     }
 
-    const subtotal = pricePerLb * lbs;
-    const tax = subtotal * TAX_RATE;
-    const total = subtotal + tax;
-    setTotals({ subtotal, tax, total });
-  }, [formData.amount, formData.recipe, formData.container]);
+    let originalSubtotal = pricePerLb * lbs;
+    let discountedSubtotal = originalSubtotal;
 
+    if (discount.percent > 0) {
+      discountedSubtotal = originalSubtotal * (1 - discount.percent / 100);
+    }
+
+    const savings = originalSubtotal - discountedSubtotal;
+    const tax = discountedSubtotal * TAX_RATE;
+    const total = discountedSubtotal + tax;
+
+    setTotals({
+      originalSubtotal,
+      subtotal: discountedSubtotal,
+      tax,
+      total,
+      savings,
+    });
+  }, [
+    formData.amount,
+    formData.recipe,
+    formData.container,
+    discount.percent,
+  ]);
+
+  // 🧾 APPLY COUPON
+  const applyCoupon = async () => {
+    if (!formData.coupon) {
+      alert("Please enter a coupon code first.");
+      return;
+    }
+
+    const subtotal =
+      (recipes.find((r) => r.name === formData.recipe)?.price || 0) *
+      (parseInt(formData.amount) || 0);
+
+    if (subtotal <= 0) {
+      alert("Please select a recipe and enter an amount before applying a coupon.");
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `https://script.google.com/macros/s/AKfycbzgcb_x4xQkeRj8_HV5ZxQJS3gkqxpg8jDan8Sj39BeDxYeM-zOB4lYRhQfsKVHQOSf/exec?action=applyCoupon&code=${encodeURIComponent(
+          formData.coupon
+        )}&total=${subtotal}`
+      );
+      const data = await res.json();
+
+      if (data.success) {
+        setDiscount({ percent: data.discountPercent, message: data.message });
+        setFade(true);
+        setTimeout(() => setFade(false), 600);
+      } else {
+        setDiscount({ percent: 0, message: data.message });
+        alert(data.message);
+      }
+    } catch (err) {
+      alert("Coupon check failed: " + err.message);
+    }
+  };
+
+  // 📦 SUBMIT ORDER
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (warning) return;
 
     const payload = {
-      name: formData.name,
-      phone: formData.phone,
-      email: formData.email,
-      address: formData.address,
-      recipe: formData.recipe,
-      container: formData.container,
-      amount: formData.amount,
-      coupon: formData.coupon,  // send coupon to sheet
+      ...formData,
       total: totals.total.toFixed(2),
     };
 
@@ -124,6 +183,7 @@ export default function OrderForm() {
           body: JSON.stringify(payload),
         }
       );
+
       const data = await response.json();
       if (data.status === "success") {
         alert("Order submitted successfully!");
@@ -136,8 +196,9 @@ export default function OrderForm() {
           container: "1 lb tub",
           amount: "",
           notes: "",
-          coupon: "",  // reset coupon
+          coupon: "",
         });
+        setDiscount({ percent: 0, message: "" });
       } else {
         alert("Submission failed: " + data.message);
       }
@@ -183,6 +244,7 @@ export default function OrderForm() {
           background: "rgba(255,255,255,0.9)",
           borderRadius: "15px",
           boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+          transition: "all 0.3s ease",
         }}
       >
         <img
@@ -214,53 +276,12 @@ export default function OrderForm() {
           onSubmit={handleSubmit}
           style={{ display: "flex", flexDirection: "column", gap: "18px" }}
         >
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            style={inputStyle}
-          />
+          <input type="text" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange} required style={inputStyle} />
+          <input type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} required style={inputStyle} />
+          <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required style={inputStyle} />
+          <input type="text" name="address" placeholder="Address" value={formData.address} onChange={handleChange} required style={inputStyle} />
 
-          <input
-            type="tel"
-            name="phone"
-            placeholder="Phone Number"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-            style={inputStyle}
-          />
-
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            style={inputStyle}
-          />
-
-          <input
-            type="text"
-            name="address"
-            placeholder="Address"
-            value={formData.address}
-            onChange={handleChange}
-            required
-            style={inputStyle}
-          />
-
-          <select
-            name="recipe"
-            value={formData.recipe}
-            onChange={handleChange}
-            required
-            style={inputStyle}
-          >
+          <select name="recipe" value={formData.recipe} onChange={handleChange} required style={inputStyle}>
             <option value="">-- Select Recipe --</option>
             {recipes.map((r) => (
               <option key={r.name} value={r.name}>
@@ -269,47 +290,31 @@ export default function OrderForm() {
             ))}
           </select>
 
-          <select
-            name="container"
-            value={formData.container}
-            onChange={handleChange}
-            required
-            style={inputStyle}
-          >
+          <select name="container" value={formData.container} onChange={handleChange} required style={inputStyle}>
             <option value="1 lb tub">1 lb Tub</option>
             <option value="2 lb meat chubs">2 lb Meat Chubs</option>
             <option value="2 oz tub (Cat Food)">2 oz Tub (Cat Food)</option>
           </select>
 
-          <input
-            type="text"
-            name="amount"
-            value={formData.amount}
-            onChange={handleChange}
-            required
-            placeholder="Amount"
-            style={inputStyle}
-          />
+          <input type="text" name="amount" value={formData.amount} onChange={handleChange} required placeholder="Amount" style={inputStyle} />
 
-          <textarea
-            name="notes"
-            placeholder="Questions or Allergies (optional)"
-            value={formData.notes}
-            onChange={handleChange}
-            rows={4}
-            style={{ ...inputStyle, resize: "vertical" }}
-          />
+          <textarea name="notes" placeholder="Questions or Allergies (optional)" value={formData.notes} onChange={handleChange} rows={4} style={{ ...inputStyle, resize: "vertical" }} />
 
           {/* Coupon field */}
-          <input
-            type="text"
-            name="coupon"
-            placeholder="Coupon Code (optional)"
-            value={formData.coupon}
-            onChange={handleChange}
-            style={inputStyle}
-          />
+          <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+            <input type="text" name="coupon" placeholder="Coupon Code (optional)" value={formData.coupon} onChange={handleChange} style={{ ...inputStyle, flex: 1 }} />
+            <button type="button" onClick={applyCoupon} style={{ ...buttonStyle, padding: "12px 16px" }}>
+              Apply
+            </button>
+          </div>
 
+          {discount.message && (
+            <p style={{ color: "#2b6e44", fontWeight: "bold", marginTop: "-10px" }}>
+              {discount.message} ({discount.percent}% off)
+            </p>
+          )}
+
+          {/* Animated Order Summary */}
           <div
             style={{
               backgroundColor: "#f3f7f5",
@@ -318,26 +323,35 @@ export default function OrderForm() {
               fontSize: "1em",
               color: "#2b6e44",
               lineHeight: 1.6,
+              opacity: fade ? 0 : 1,
+              transition: "opacity 0.6s ease",
             }}
           >
             <strong>Order Summary</strong>
             <br />
-            Subtotal: ${totals.subtotal.toFixed(2)}
+            {totals.savings > 0 ? (
+              <>
+                <span style={{ textDecoration: "line-through", color: "#888" }}>
+                  ${totals.originalSubtotal.toFixed(2)}
+                </span>{" "}
+                <span style={{ fontWeight: "bold" }}>
+                  ${totals.subtotal.toFixed(2)}
+                </span>
+                <br />
+                <strong style={{ color: "#2b6e44" }}>
+                  You saved ${totals.savings.toFixed(2)}!
+                </strong>
+              </>
+            ) : (
+              <>Subtotal: ${totals.subtotal.toFixed(2)}</>
+            )}
             <br />
             NJ Sales Tax (6.625%): ${totals.tax.toFixed(2)}
             <br />
             <strong>Total: ${totals.total.toFixed(2)}</strong>
           </div>
 
-          <button
-            type="submit"
-            disabled={!!warning}
-            style={{
-              ...buttonStyle,
-              opacity: warning ? 0.6 : 1,
-              cursor: warning ? "not-allowed" : "pointer",
-            }}
-          >
+          <button type="submit" disabled={!!warning} style={{ ...buttonStyle, opacity: warning ? 0.6 : 1, cursor: warning ? "not-allowed" : "pointer" }}>
             Submit Order
           </button>
         </form>
