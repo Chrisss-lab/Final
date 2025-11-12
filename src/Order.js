@@ -296,7 +296,18 @@ export default function OrderForm() {
             <option value="2 oz tub (Cat Food)">2 oz Tub (Cat Food)</option>
           </select>
 
-          <input type="text" name="amount" value={formData.amount} onChange={handleChange} required placeholder="Amount" style={inputStyle} />
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+  <input
+    type="text"
+    name="amount"
+    value={formData.amount}
+    onChange={handleChange}
+    required
+    placeholder="Amount"
+    style={{ ...inputStyle, flex: 1 }}
+  />
+  <span style={{ fontWeight: "bold", fontSize: "1em", color: "#2b6e44" }}>lb</span>
+</div>
 
           <textarea name="notes" placeholder="Questions or Allergies (optional)" value={formData.notes} onChange={handleChange} rows={4} style={{ ...inputStyle, resize: "vertical" }} />
 
