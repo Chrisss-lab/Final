@@ -117,90 +117,97 @@ function NewToRaw() {
 
       <div style={sectionDivider}></div>
 
-     {/* === Whole Foods vs Synthetic Vitamins === */}
-<div style={{
-  width: "100%",
-  position: "relative",
-  borderRadius: "12px",
-  overflow: "hidden",
-  marginTop: "50px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  flexDirection: "column"
-}}>
-
+    {/* === Whole Foods vs Synthetic Vitamins Section === */}
+<div
+  style={{
+    width: "100%",
+    position: "relative",
+    borderRadius: "12px",
+    overflow: "hidden",
+    marginTop: "50px",
+    minHeight: "400px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  }}
+>
   {/* Background photo */}
   <img
     src={wholeFoodsVsKibble}
     alt="Whole Foods vs Kibble"
     style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
       width: "100%",
-      height: "auto",
+      height: "100%",
       objectFit: "cover",
-      display: "block",
-      borderRadius: "12px"
+      objectPosition: "center",
+      borderRadius: "12px",
+      filter: "brightness(0.55)",
+      zIndex: 0,
     }}
   />
 
-  {/* Dark overlay */}
-  <div style={{
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0,0,0,0.55)",
-    zIndex: 1,
-    borderRadius: "12px"
-  }}></div>
+  {/* Overlay */}
+  <div
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundColor: "rgba(0,0,0,0.55)",
+      zIndex: 1,
+      borderRadius: "12px",
+    }}
+  ></div>
 
-  {/* Centered text within frame */}
-  <div style={{
-    position: "absolute",
-    zIndex: 2,
-    maxWidth: "850px",
-    width: "90%",
-    padding: "30px 20px",
-    boxSizing: "border-box",
-    textAlign: "center",
-    color: "#fff",
-    textShadow: "3px 3px 12px rgba(0,0,0,0.85)"
-  }}>
-    <h2 style={{ fontSize: "2.3em", marginBottom: "25px" }}>
+  {/* Text */}
+  <div
+    style={{
+      position: "relative",
+      zIndex: 2,
+      maxWidth: "90%",
+      width: "100%",
+      padding: "30px 20px",
+      boxSizing: "border-box",
+      textAlign: "center",
+      color: "#fff",
+      textShadow: "2px 2px 10px rgba(0,0,0,0.8)",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+    }}
+  >
+    <h2 style={{ fontSize: "clamp(1.8em, 5vw, 2.3em)", marginBottom: "25px" }}>
       Whole Foods vs Synthetic Vitamins
     </h2>
-
-    <p style={{ fontSize: "1.15em", lineHeight: "1.7", marginBottom: "20px" }}>
+    <p style={{ fontSize: "clamp(1em, 3vw, 1.15em)", lineHeight: 1.7, marginBottom: "20px" }}>
       Many store-bought foods use synthetic vitamins and minerals to “complete” the diet. These are added to meet labels, but your dog’s body doesn’t absorb them as well.
     </p>
-
-    <ul style={{
-      fontSize: "1.1em",
-      lineHeight: "1.7",
-      textAlign: "left",
-      maxWidth: "700px",
-      margin: "0 auto 30px auto"
-    }}>
+    <ul
+      style={{
+        fontSize: "clamp(0.95em, 2.5vw, 1.1em)",
+        lineHeight: 1.7,
+        textAlign: "left",
+        maxWidth: "700px",
+        margin: "0 auto 30px auto",
+        paddingLeft: "20px",
+      }}
+    >
       <li>Bioavailability matters: nutrients in whole foods are easier for the body to absorb, use, and store.</li>
       <li>Whole animal ingredients deliver vitamins, minerals, and amino acids naturally.</li>
       <li>At Jersey Raw, all nutrients come from real foods — beef, liver, heart, eggs, and vegetables.</li>
       <li>Whole ingredients provide a complete package supporting immunity, coat, energy, and vitality.</li>
     </ul>
-
-    {/* Container Sizes Text Under Photo */}
-    <p style={{
-      fontSize: "1.15em",
-      lineHeight: "1.6",
-      textAlign: "center",
-      color: "#fff",
-      textShadow: "2px 2px 8px rgba(0,0,0,0.7)"
-    }}>
+    <p style={{ fontSize: "clamp(1em, 3vw, 1.15em)", lineHeight: 1.6, textAlign: "center" }}>
       Convenient portion sizes make feeding and storing simple. Each type matches your pet’s needs.
     </p>
   </div>
 </div>
-{/* === Container Sizes (Text Over Photo with Bottom 10% Crop) === */}
+
+{/* === Container Sizes Section === */}
 <div
   style={{
     width: "100%",
@@ -208,80 +215,98 @@ function NewToRaw() {
     position: "relative",
     borderRadius: "12px",
     overflow: "hidden",
+    minHeight: "650px", // taller section to fit full photo
   }}
 >
-  {/* Background photo — bottom 10% removed */}
+  {/* Background photo */}
   <img
     src={Comparison2}
     alt="Container Sizes"
     style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
       width: "100%",
-      height: "auto",
-      display: "block",
+      height: "100%",
       objectFit: "cover",
-      objectPosition: "center top",
-      clipPath: "inset(0 0 10% 0)", // removes bottom 10%
+      objectPosition: "center top", // photo starts at top
       filter: "brightness(0.82)",
+      zIndex: 0,
     }}
   />
 
-  {/* Text overlay with gradient fade */}
+  {/* Gradient overlay */}
   <div
     style={{
       position: "absolute",
       top: 0,
       left: 0,
       width: "100%",
-      padding: "40px 25px 100px 25px",
-      background:
-        "linear-gradient(to bottom, rgba(245,245,245,0.98) 0%, rgba(245,245,245,0.8) 40%, rgba(245,245,245,0) 100%)",
+      height: "100%",
+      background: "linear-gradient(to bottom, rgba(245,245,245,0.98) 0%, rgba(245,245,245,0.8) 20%, rgba(245,245,245,0) 100%)",
+      zIndex: 1,
+    }}
+  ></div>
+
+  {/* Text content at the very top */}
+  <div
+    style={{
+      position: "absolute",
+      top: 0, // move text to very top
+      left: "50%",
+      transform: "translateX(-50%)",
+      zIndex: 2,
+      maxWidth: "90%",
+      padding: "20px",
+      boxSizing: "border-box",
       color: "#333",
+      textAlign: "center",
     }}
   >
-    <div style={{ maxWidth: "850px", margin: "0 auto" }}>
-      <h2
-        style={{
-          fontSize: "2em",
-          marginBottom: "15px",
-          color: "#2c6f44",
-          textShadow: "0px 2px 6px rgba(0,0,0,0.35)",
-        }}
-      >
-        Our Food Container Sizes
-      </h2>
-
-      <p
-        style={{
-          fontSize: "1.1em",
-          lineHeight: "1.6",
-          marginBottom: "20px",
-          textShadow: "0px 1px 5px rgba(0,0,0,0.45)",
-        }}
-      >
-        Convenient portion sizes make feeding and storing simple. Each type matches your pet’s needs.
-      </p>
-
-      <ul
-        style={{
-          fontSize: "1.05em",
-          lineHeight: "1.6",
-          paddingLeft: "20px",
-          textShadow: "0px 1px 5px rgba(0,0,0,0.35)",
-        }}
-      >
-        <li>
-          <strong>1 lb Tubs:</strong> Quick to thaw, easy to portion, fridge-friendly.
-        </li>
-        <li>
-          <strong>2 lb Meat Logs:</strong> Slice as needed — ideal for large dogs or bulk feeders.
-        </li>
-        <li>
-          <strong>2 oz Tubs (for cats):</strong> Easy single-servings with no waste.
-        </li>
-      </ul>
-    </div>
+    <h2
+      style={{
+        fontSize: "clamp(1.8em, 5vw, 2em)",
+        marginBottom: "15px",
+        color: "#2c6f44",
+        textShadow: "0px 2px 6px rgba(0,0,0,0.35)",
+      }}
+    >
+      Our Food Container Sizes
+    </h2>
+    <p
+      style={{
+        fontSize: "clamp(1em, 3vw, 1.1em)",
+        lineHeight: 1.6,
+        marginBottom: "20px",
+        textShadow: "0px 1px 5px rgba(0,0,0,0.45)",
+      }}
+    >
+      Convenient portion sizes make feeding and storing simple. Each type matches your pet’s needs.
+    </p>
+    <ul
+      style={{
+        fontSize: "clamp(0.95em, 2.5vw, 1.05em)",
+        lineHeight: 1.6,
+        paddingLeft: "20px",
+        textShadow: "0px 1px 5px rgba(0,0,0,0.35)",
+        maxWidth: "700px",
+        margin: "0 auto",
+      }}
+    >
+      <li>
+        <strong>1 lb Tubs:</strong> Quick to thaw, easy to portion, fridge-friendly.
+      </li>
+      <li>
+        <strong>2 lb Meat Logs:</strong> Slice as needed — ideal for large dogs or bulk feeders.
+      </li>
+      <li>
+        <strong>2 oz Tubs (for cats):</strong> Easy single-servings with no waste.
+      </li>
+    </ul>
   </div>
 </div>
+
+
 
 
 
