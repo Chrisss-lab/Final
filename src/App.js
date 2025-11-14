@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { HashRouter as Router, Routes, Route, Link } from "react-router-dom"; // ✅ FIXED HERE
+import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import Ingredients from "./Ingredients.js";
 import AboutContact from "./AboutContact.js";
@@ -10,6 +10,7 @@ import NewToRaw from "./NewToRaw.js";
 
 import logo from "./photo-jersey-raw-logo.jpg";
 import bgPhoto from "./Photos/Food 3.jpg";
+import MeatFlowers from "./Photos/Meat Flowers.jpg"; // image used behind "Why Choose..."
 
 function App() {
   const [showHeader, setShowHeader] = useState(true);
@@ -94,38 +95,6 @@ function App() {
     textShadow: "1px 1px 6px rgba(0,0,0,0.8)",
   };
 
-  const textSectionStyle = {
-    position: "relative",
-    maxWidth: "900px",
-    margin: "40px auto",
-    padding: "60px 30px",
-    backgroundImage: `url(${bgPhoto})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    borderRadius: "12px",
-    color: "#fff",
-    boxShadow: "0 6px 18px rgba(0,0,0,0.3)",
-    textAlign: "center",
-    overflow: "hidden",
-  };
-
-  const textOverlay = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0,0,0,0.55)",
-    borderRadius: "12px",
-    zIndex: 1,
-  };
-
-  const textContent = {
-    position: "relative",
-    zIndex: 2,
-    textShadow: "2px 2px 8px rgba(0,0,0,0.7)",
-  };
-
   const navItems = [
     { label: "Home", path: "/" },
     { label: "Recipes", path: "/recipes" },
@@ -189,9 +158,7 @@ function App() {
               <Link
                 key={idx}
                 to={item.path}
-                style={{
-                  ...linkStyle,
-                }}
+                style={{ ...linkStyle }}
                 onMouseEnter={(e) => {
                   e.target.style.backgroundColor = "#dcefe0";
                   e.target.style.transform = "translateY(-2px)";
@@ -243,49 +210,85 @@ function App() {
                   </div>
                 </div>
 
-                <div style={textSectionStyle}>
-                  <div style={textOverlay}></div>
-                  <div style={textContent}>
-                    <h2 style={{ fontSize: "2em", marginBottom: "20px" }}>
-                      Why Choose Jersey Raw?
-                    </h2>
-                    <p style={{ fontSize: "1.1em", lineHeight: "1.7" }}>
-                      At Jersey Raw, your dog gets{" "}
-                      <strong>
-                        100% fresh, USDA-approved meats, organs, and produce
-                      </strong>{" "}
-                      — no fillers, artificial ingredients, or preservatives.
-                    </p>
-                    <p
-                      style={{
-                        fontSize: "1.1em",
-                        lineHeight: "1.7",
-                        marginTop: "15px",
-                      }}
-                    >
-                      Serving Morris County, NJ, our mission is simple: fuel
-                      your dog’s health with fresh, safe, and balanced raw
-                      meals.
-                    </p>
-                    <p
-                      style={{
-                        fontSize: "1.1em",
-                        lineHeight: "1.7",
-                        marginTop: "15px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Orders are picked up in{" "}
-                      <strong>Morris County, New Jersey</strong> by appointment.
-                      After submitting your order, you’ll receive a text to
-                      schedule a convenient pickup date and time — with flexible
-                      hours to fit your schedule.
-                    </p>
-                  </div>
-                </div>
+{/* =========================
+     WHY CHOOSE JERSEY RAW SECTION (photo + text with tint/shadow)
+========================= */}
+<div
+  style={{
+    width: "100%",
+    minHeight: "400px",
+    position: "relative",
+    borderRadius: "12px",
+    overflow: "hidden",
+  }}
+>
+  {/* Background photo */}
+  <img
+    src={MeatFlowers}
+    alt="Why Choose Jersey Raw"
+    style={{
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      borderRadius: "12px",
+      display: "block",
+    }}
+  />
+
+  {/* Dark overlay for better text readability */}
+  <div
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundColor: "rgba(0,0,0,0.35)", // slightly darker tint
+      borderRadius: "12px",
+      zIndex: 1,
+    }}
+  ></div>
+
+  {/* Text content */}
+  <div
+    style={{
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      zIndex: 2,
+      maxWidth: "800px",
+      textAlign: "center",
+      color: "#fff",
+      padding: "20px",
+      textShadow: "2px 2px 6px rgba(0,0,0,0.7)", // subtle shadow
+    }}
+  >
+    <h2 style={{ fontSize: "2.5em", marginBottom: "20px" }}>
+      Why Choose Jersey Raw?
+    </h2>
+    <p style={{ fontSize: "1.2em", lineHeight: "1.7", marginBottom: "15px" }}>
+      At Jersey Raw, your dog gets <strong>100% fresh, USDA-approved meats, organs, and produce</strong> — no fillers, artificial ingredients, or preservatives.
+    </p>
+    <p style={{ fontSize: "1.2em", lineHeight: "1.7", marginBottom: "15px" }}>
+      Serving Morris County, NJ, our mission is simple: fuel your dog’s health with fresh, safe, and balanced raw meals.
+    </p>
+    <p style={{ fontSize: "1.2em", lineHeight: "1.7", fontWeight: "bold" }}>
+      Orders are picked up in <strong>Morris County, New Jersey</strong> by appointment. After submitting your order, you’ll receive a text to schedule a convenient pickup date and time.
+    </p>
+  </div>
+</div>
+{/* =========================
+     END WHY CHOOSE JERSEY RAW SECTION
+========================= */}
+
+
+
+
               </div>
             }
           />
+
           <Route path="/ingredients" element={<div style={cardStyle}><Ingredients /></div>} />
           <Route path="/new-to-raw" element={<div style={cardStyle}><NewToRaw /></div>} />
           <Route path="/about-contact" element={<div style={cardStyle}><AboutContact /></div>} />
