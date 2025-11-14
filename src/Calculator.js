@@ -28,8 +28,8 @@ const recipes = [
 ];
 
 // Multipliers
-const activityMultipliers = { low: 0.9, moderate: 1, high: 1.2, "very high": 1.35 };
-const goalMultipliers = { lose_weight: 0.85, maintain: 1, gain_some: 1.1 };
+const activityMultipliers = { low: 0.9, moderate: 1, high: 1.4, "very high": 1.7 };
+const goalMultipliers = { lose_weight: 0.75, maintain: 1, gain_some: 1.3 };
 
 // Helpers
 const getLifeStage = (ageMonths, species) => {
