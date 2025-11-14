@@ -216,10 +216,10 @@ function App() {
 <div
   style={{
     width: "100%",
-    minHeight: "400px",
     position: "relative",
     borderRadius: "12px",
     overflow: "hidden",
+    padding: "40px 20px", // allows text to expand naturally
   }}
 >
   {/* Background photo */}
@@ -227,15 +227,17 @@ function App() {
     src={MeatFlowers}
     alt="Why Choose Jersey Raw"
     style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
       width: "100%",
       height: "100%",
       objectFit: "cover",
-      borderRadius: "12px",
-      display: "block",
+      zIndex: 0,
     }}
   />
 
-  {/* Dark overlay for better text readability */}
+  {/* Dark overlay */}
   <div
     style={{
       position: "absolute",
@@ -243,38 +245,65 @@ function App() {
       left: 0,
       width: "100%",
       height: "100%",
-      backgroundColor: "rgba(0,0,0,0.35)", // slightly darker tint
-      borderRadius: "12px",
+      backgroundColor: "rgba(0,0,0,0.40)",
       zIndex: 1,
     }}
   ></div>
 
-  {/* Text content */}
+  {/* Text content (now flows naturally and never cuts off) */}
   <div
     style={{
-      position: "absolute",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
+      position: "relative",
       zIndex: 2,
-      maxWidth: "800px",
+      maxWidth: "900px",
+      margin: "0 auto",
       textAlign: "center",
       color: "#fff",
-      padding: "20px",
-      textShadow: "2px 2px 6px rgba(0,0,0,0.7)", // subtle shadow
+      textShadow: "2px 2px 6px rgba(0,0,0,0.7)",
     }}
   >
-    <h2 style={{ fontSize: "2.5em", marginBottom: "20px" }}>
+    <h2
+      style={{
+        fontSize: "2.2em",
+        marginBottom: "20px",
+      }}
+    >
       Why Choose Jersey Raw?
     </h2>
-    <p style={{ fontSize: "1.2em", lineHeight: "1.7", marginBottom: "15px" }}>
-      At Jersey Raw, your dog gets <strong>100% fresh, USDA-approved meats, organs, and produce</strong> — no fillers, artificial ingredients, or preservatives.
+
+    <p
+      style={{
+        fontSize: "1.1em",
+        lineHeight: 1.7,
+        marginBottom: "15px",
+      }}
+    >
+      At Jersey Raw, your dog gets <strong>100% fresh, USDA-approved meats,
+      organs, and produce</strong> — no fillers, artificial ingredients, or
+      preservatives.
     </p>
-    <p style={{ fontSize: "1.2em", lineHeight: "1.7", marginBottom: "15px" }}>
-      Serving Morris County, NJ, our mission is simple: fuel your dog’s health with fresh, safe, and balanced raw meals.
+
+    <p
+      style={{
+        fontSize: "1.1em",
+        lineHeight: 1.7,
+        marginBottom: "15px",
+      }}
+    >
+      Serving Morris County, NJ, our mission is simple: fuel your dog’s health
+      with fresh, safe, and balanced raw meals.
     </p>
-    <p style={{ fontSize: "1.2em", lineHeight: "1.7", fontWeight: "bold" }}>
-      Orders are picked up in <strong>Morris County, New Jersey</strong> by appointment. After submitting your order, you’ll receive a text to schedule a convenient pickup date and time.
+
+    <p
+      style={{
+        fontSize: "1.1em",
+        lineHeight: 1.7,
+        fontWeight: "bold",
+      }}
+    >
+      Orders are picked up in <strong>Morris County, New Jersey</strong> by
+      appointment. After submitting your order, you’ll receive a text to
+      schedule a convenient pickup time.
     </p>
   </div>
 </div>
