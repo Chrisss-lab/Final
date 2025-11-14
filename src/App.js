@@ -8,7 +8,7 @@ import FetchRecipes from "./FetchRecipes.js";
 import Calculator from "./Calculator.js";
 import NewToRaw from "./NewToRaw.js";
 
-import logo from "./photo-jersey-raw-logo.jpg";
+import logo from "./photo-jersey-raw-logo.jpg"; // KEEP ORIGINAL LOGO
 import bgPhoto from "./Photos/Food 3.jpg";
 import MeatFlowers from "./Photos/Meat Flowers.jpg"; // image used behind "Why Choose..."
 
@@ -63,38 +63,6 @@ function App() {
     textAlign: "center",
   };
 
-  const heroStyle = {
-    position: "relative",
-    backgroundImage: `url(${logo})`,
-    backgroundSize: "contain",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-    padding: "80px 20px",
-    borderRadius: "12px",
-    margin: "20px auto",
-    maxWidth: "900px",
-    color: "#fff",
-    textAlign: "center",
-    overflow: "hidden",
-  };
-
-  const overlayStyle = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0,0,0,0.6)",
-    borderRadius: "12px",
-    zIndex: 1,
-  };
-
-  const heroTextStyle = {
-    position: "relative",
-    zIndex: 2,
-    textShadow: "1px 1px 6px rgba(0,0,0,0.8)",
-  };
-
   const navItems = [
     { label: "Home", path: "/" },
     { label: "Recipes", path: "/recipes" },
@@ -115,7 +83,9 @@ function App() {
           minHeight: "100vh",
         }}
       >
-        {/* Header */}
+        {/* =========================
+             HEADER
+        ========================= */}
         <header
           style={{
             display: "flex",
@@ -135,7 +105,7 @@ function App() {
           }}
         >
           <img
-            src={logo}
+            src={logo} // ORIGINAL LOGO
             alt="Jersey Raw Logo"
             style={{
               height: "55px",
@@ -176,42 +146,119 @@ function App() {
           </nav>
         </header>
 
-        {/* Routes */}
+        {/* =========================
+             ROUTES
+        ========================= */}
         <Routes>
           <Route
             path="/"
             element={
               <div style={{ textAlign: "center" }}>
-                <div style={heroStyle}>
-                  <div style={overlayStyle}></div>
-                  <div style={heroTextStyle}>
-                    <h1 style={{ fontSize: "2.8em" }}>
-                      Fresh Made-to-Order Raw Dog Meals in Morris County, NJ
-                    </h1>
-                    <p
-                      style={{
-                        fontSize: "1.2em",
-                        maxWidth: "700px",
-                        margin: "10px auto 20px",
-                      }}
-                    >
-                      Each meal is prepared fresh and tailored to your dog’s
-                      unique needs using 100% USDA-approved meats and fresh
-                      produce.
-                    </p>
-                    <div>
-                      <Link to="/recipes" style={buttonStyle}>
-                        Recipes
-                      </Link>
-                      <Link to="/order" style={buttonStyle}>
-                        Order Now
-                      </Link>
-                    </div>
-                  </div>
-                </div>
+{/* =========================
+     HERO SECTION: Fresh Made-to-Order Raw Dog Meals
+========================= */}
+<div
+  style={{
+    width: "100%",
+    position: "relative",
+    overflow: "hidden",
+    marginTop: "20px",
+  }}
+>
+  {/* Full-width background photo */}
+  <img
+    src={logo}
+    alt="Fresh Made to Order Raw Dog Meals"
+    style={{
+      width: "100%",
+      height: "auto",
+      maxHeight: "480px", // keep the image within reasonable height
+      objectFit: "cover",
+      objectPosition: "center",
+      display: "block",
+      filter: "brightness(0.75)",
+    }}
+  />
+
+  {/* Overlay for text readability */}
+  <div
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      background: "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.25))",
+      zIndex: 1,
+    }}
+  ></div>
+
+  {/* Text content */}
+  <div
+    style={{
+      position: "absolute",
+      top: "50%", // center vertically
+      left: "50%",
+      transform: "translate(-50%, -50%)", // fully center text block
+      zIndex: 2,
+      textAlign: "center",
+      color: "#fff",
+      padding: "10px 20px", // smaller padding so buttons stay higher
+      maxWidth: "900px",
+      backgroundColor: "rgba(0,0,0,0.12)",
+      borderRadius: "12px",
+    }}
+  >
+    <h1
+      style={{
+        fontSize: "2.5em",
+        marginBottom: "10px", // reduced margin
+        textShadow: "2px 2px 12px rgba(0,0,0,0.8)",
+      }}
+    >
+      Fresh Made-to-Order Raw Dog Meals in Morris County, NJ
+    </h1>
+    <p
+      style={{
+        fontSize: "1.15em",
+        maxWidth: "700px",
+        margin: "0 auto 15px", // smaller margin to pull buttons up
+        lineHeight: 1.6,
+        textShadow: "2px 2px 10px rgba(0,0,0,0.7)",
+      }}
+    >
+      Each meal is prepared fresh and tailored to your dog’s unique needs using 100% USDA-approved meats and fresh produce.
+    </p>
+    <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
+      <Link to="/recipes" style={buttonStyle}>
+        Recipes
+      </Link>
+      <Link to="/order" style={buttonStyle}>
+        Order Now
+      </Link>
+    </div>
+  </div>
+
+  {/* Bottom gradient for smooth transition */}
+  <div
+    style={{
+      position: "absolute",
+      bottom: 0,
+      left: 0,
+      width: "100%",
+      height: "50px",
+      background: "linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0))",
+      zIndex: 1,
+    }}
+  ></div>
+</div>
+{/* =========================
+     END HERO SECTION
+========================= */}
+
 
 {/* =========================
- WHY CHOOSE JERSEY RAW SECTION
+     WHY CHOOSE JERSEY RAW SECTION
 ========================= */}
 <div
   style={{
@@ -219,11 +266,11 @@ function App() {
     position: "relative",
     borderRadius: "12px",
     overflow: "hidden",
-    padding: "40px 20px",
-    minHeight: "480px", // Prevents cutting on phones
+    padding: "60px 20px 40px 20px", // more top padding for natural gap
+    minHeight: "480px",
+    marginTop: "0px", // removed negative margin to avoid overlap
   }}
 >
-
   {/* Background photo */}
   <img
     src={MeatFlowers}
@@ -235,7 +282,7 @@ function App() {
       width: "100%",
       height: "100%",
       objectFit: "cover",
-      objectPosition: "center", // keeps focus centered
+      objectPosition: "center",
       zIndex: 0,
     }}
   />
@@ -248,7 +295,7 @@ function App() {
       left: 0,
       width: "100%",
       height: "100%",
-      backgroundColor: "rgba(0,0,0,0.40)",
+      backgroundColor: "rgba(0,0,0,0.35)",
       zIndex: 1,
     }}
   ></div>
@@ -270,31 +317,21 @@ function App() {
     </h2>
 
     <p style={{ fontSize: "1.1em", lineHeight: 1.7, marginBottom: "15px" }}>
-      At Jersey Raw, your dog gets <strong>100% fresh, USDA-approved
-      meats, organs, and produce</strong> — no fillers, artificial
-      ingredients, or preservatives.
+      At Jersey Raw, your dog gets <strong>100% fresh, USDA-approved meats, organs, and produce</strong> — no fillers, artificial ingredients, or preservatives.
     </p>
 
     <p style={{ fontSize: "1.1em", lineHeight: 1.7, marginBottom: "15px" }}>
-      Serving Morris County, NJ, our mission is simple: fuel your dog’s health
-      with fresh, safe, and balanced raw meals.
+      Serving Morris County, NJ, our mission is simple: fuel your dog’s health with fresh, safe, and balanced raw meals.
     </p>
 
     <p style={{ fontSize: "1.1em", lineHeight: 1.7, fontWeight: "bold" }}>
-      Orders are picked up in <strong>Morris County, New Jersey</strong> by
-      appointment. After submitting your order, you’ll receive a text to
-      schedule a convenient pickup time.
+      Orders are picked up in <strong>Morris County, New Jersey</strong> by appointment. After submitting your order, you’ll receive a text to schedule a convenient pickup time.
     </p>
   </div>
 </div>
-
 {/* =========================
- END WHY CHOOSE JERSEY RAW SECTION
+     END WHY CHOOSE JERSEY RAW SECTION
 ========================= */}
-
-
-
-
 
               </div>
             }
@@ -308,6 +345,9 @@ function App() {
           <Route path="/calculator" element={<Calculator />} />
         </Routes>
 
+        {/* =========================
+             FOOTER
+        ========================= */}
         <footer
           style={{
             textAlign: "center",
@@ -318,12 +358,10 @@ function App() {
           }}
         >
           <p>
-            &copy; {new Date().getFullYear()} Jersey Raw — Fresh Raw Dog Food in
-            Morris County, NJ.
+            &copy; {new Date().getFullYear()} Jersey Raw — Fresh Raw Dog Food in Morris County, NJ.
           </p>
           <p>
-            Pickup by appointment with flexible hours. Text confirmation sent
-            after order submission.
+            Pickup by appointment with flexible hours. Text confirmation sent after order submission.
           </p>
         </footer>
       </div>
