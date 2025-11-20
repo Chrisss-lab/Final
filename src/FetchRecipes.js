@@ -46,6 +46,14 @@ function Recipes() {
     }
   };
 
+  // Handle pricing display → only treats are per 4 ounces
+  const getUnitLabel = (recipe) => {
+    if (recipe.category?.toLowerCase().includes("treat")) {
+      return "4 oz"; // Treats per 4 ounces
+    }
+    return recipe.unit || "lb"; // Everything else default per lb
+  };
+
   const renderRecipes = (category) =>
     recipes
       .filter((r) => r.category === category)
@@ -92,7 +100,7 @@ function Recipes() {
               marginBottom: "15px",
             }}
           >
-            ${Number(recipe.price).toFixed(2)} / {recipe.unit || "lb"}
+            ${Number(recipe.price).toFixed(2)} / {getUnitLabel(recipe)}
           </div>
 
           <h4
@@ -185,7 +193,9 @@ function Recipes() {
 
         {/* Recipe Sections */}
         {loading ? (
-          <p style={{ textAlign: "center", color: "#fff" }}>Loading recipes...</p>
+          <p style={{ textAlign: "center", color: "#fff" }}>
+            Loading recipes...
+          </p>
         ) : (
           categories.map((cat, i) => (
             <div key={i} ref={sectionRefs.current[cat]} style={{ marginTop: "60px" }}>
