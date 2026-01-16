@@ -6,7 +6,7 @@ import BackgroundImage from "./Photos/Food2.jpg";
 const recipes = [
   { name: "Royal Carnivore", price: 12.99 },
   { name: "Daily Thrive", price: 4.25 },
-  { name: "Growing Paws Puppy", price: 2.99 },
+  { name: "Growing Paws Puppy Blend", price: 2.99 },
   { name: "Puppy Thrive", price: 4.99 },
   { name: "Joint Care Blend", price: 5.25 },
   { name: "Ocean Vitality Blend", price: 9.99 },
