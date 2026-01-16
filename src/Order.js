@@ -14,6 +14,7 @@ const recipes = [
   { name: "Fetch and Feast Chicken", price: 2.25 },
   { name: "Wild Whiskers", price: 10.5 },
   { name: "Bark and Broth Treats", price: 5.99 },
+  { name: "Dehydrated Royal Carnivore", price: 24.99 },
 ];
 
 export default function OrderForm() {
