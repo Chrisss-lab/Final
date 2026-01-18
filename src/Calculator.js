@@ -24,7 +24,7 @@ const recipes = [
   { name: "Daily Thrive", caloriesPerLb: 1450 },
   { name: "Puppy", caloriesPerLb: 1550 },
   { name: "Joint", caloriesPerLb: 1400 },
-  { name: "Alpha Bite Beef Mix", caloriesPerLb: 1250 },
+  { name: ""},
 ];
 
 // Multipliers
