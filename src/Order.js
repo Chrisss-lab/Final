@@ -1,24 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import logo from "./photo-jersey-raw-logo.jpg";
 import BackgroundImage from "./Photos/Food2.jpg";
 
-const recipes = [
-  { name: "Royal Carnivore", price: 12.99 },
-  { name: "Daily Thrive", price: 4.25 },
-  { name: "Growing Paws Puppy Blend", price: 2.99 },
-  { name: "Puppy Thrive", price: 4.99 },
-  { name: "Joint Care Blend", price: 5.25 },
-  { name: "Ocean Vitality Blend", price: 9.99 },
-  { name: "Wild Balance", price: 7.99 },
-  { name: "Fetch and Feast Chicken", price: 2.25 },
-  { name: "Wild Whiskers", price: 10.5 },
-  { name: "Bark and Broth Treats", price: 5.99 },
-  { name: "Dehydrated Royal Carnivore", price: 24.99 },
-];
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbwLtPpoNlnrbIcs_LFk7QIa1GZmLmGkRW7al7LzOQ4Ch8sC5O4YQxjKl44o8LQscekK/exec";
 
 export default function OrderForm() {
   const location = useLocation();
+
+  const [recipes, setRecipes] = useState([]);
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -31,6 +23,8 @@ export default function OrderForm() {
     coupon: "",
   });
 
+  const [showConfirmation, setShowConfirmation] = useState(false);
+
   const [totals, setTotals] = useState({
     subtotal: 0,
     originalSubtotal: 0,
@@ -38,6 +32,7 @@ export default function OrderForm() {
     total: 0,
     savings: 0,
   });
+
   const [discount, setDiscount] = useState({ percent: 0, message: "" });
   const [warning, setWarning] = useState("");
   const [fade, setFade] = useState(false);
@@ -77,6 +72,20 @@ export default function OrderForm() {
       }));
   }, [location.search]);
 
+  // ✅ Fetch recipes from Google Sheet
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const res = await fetch(GOOGLE_SCRIPT_URL);
+        const data = await res.json();
+        setRecipes(data);
+      } catch (err) {
+        console.error("Error loading recipes:", err);
+      }
+    };
+    fetchRecipes();
+  }, []);
+
   const handleChange = (e) => {
     let { name, value } = e.target;
     if (name === "amount") value = value.replace(/\D/g, "");
@@ -86,7 +95,7 @@ export default function OrderForm() {
   // 🔢 Calculate totals
   useEffect(() => {
     const selectedRecipe = recipes.find((r) => r.name === formData.recipe);
-    const pricePerLb = selectedRecipe ? selectedRecipe.price : 0;
+    const pricePerLb = selectedRecipe ? Number(selectedRecipe.price) : 0;
     const lbs = parseInt(formData.amount) || 0;
 
     if (lbs > 0) {
@@ -128,6 +137,7 @@ export default function OrderForm() {
     formData.recipe,
     formData.container,
     discount.percent,
+    recipes,
   ]);
 
   // 🧾 APPLY COUPON
@@ -187,26 +197,44 @@ export default function OrderForm() {
       );
 
       const data = await response.json();
+
       if (data.status === "success") {
-        alert("Order submitted successfully!");
-        setFormData({
-          name: "",
-          phone: "",
-          email: "",
-          address: "",
-          recipe: "",
-          container: "1 lb tub",
-          amount: "",
-          notes: "",
-          coupon: "",
-        });
-        setDiscount({ percent: 0, message: "" });
+        setShowConfirmation(true);
       } else {
         alert("Submission failed: " + data.message);
       }
     } catch (error) {
       alert("Submission failed: " + error.message);
     }
+  };
+
+  const handleOrderAgain = () => {
+    setFormData((prev) => ({
+      ...prev,
+      recipe: "",
+      amount: "",
+      container: "1 lb tub",
+      notes: "",
+      coupon: "",
+    }));
+    setDiscount({ percent: 0, message: "" });
+    setShowConfirmation(false);
+  };
+
+  const handleDone = () => {
+    setFormData({
+      name: "",
+      phone: "",
+      email: "",
+      address: "",
+      recipe: "",
+      container: "1 lb tub",
+      amount: "",
+      notes: "",
+      coupon: "",
+    });
+    setDiscount({ percent: 0, message: "" });
+    setShowConfirmation(false);
   };
 
   return (
@@ -273,32 +301,33 @@ export default function OrderForm() {
         >
           Place Your Order
         </h2>
-<div
-  style={{
-    backgroundColor: "#f3f7f5",
-    borderRadius: "10px",
-    padding: "15px",
-    marginBottom: "20px",
-    fontSize: "0.95em",
-    color: "#2b6e44",
-    lineHeight: 1.5,
-  }}
->
-  <strong>How Ordering Works</strong>
-  <p style={{ marginTop: "8px" }}>
-    After placing your order, a detailed invoice will be emailed to the email
-    address you provide.
-  </p>
-  <p>
-    Once your order is received, we will contact you by text or phone to schedule
-    a convenient pickup time and confirm the pickup location.
-  </p>
-  <p style={{ marginBottom: 0 }}>
-    If you have any questions or special requests, feel free to email or text us
-    at <strong>JerseyRawHelp@gmail.com</strong> or <strong>973-532-2247</strong> —
-    we’re happy to help.
-  </p>
-</div>
+
+        <div
+          style={{
+            backgroundColor: "#f3f7f5",
+            borderRadius: "10px",
+            padding: "15px",
+            marginBottom: "20px",
+            fontSize: "0.95em",
+            color: "#2b6e44",
+            lineHeight: 1.5,
+          }}
+        >
+          <strong>How Ordering Works</strong>
+          <p style={{ marginTop: "8px" }}>
+            After placing your order, a detailed invoice will be emailed to the email
+            address you provide.
+          </p>
+          <p>
+            Once your order is received, we will contact you by text or phone to schedule
+            a convenient pickup time and confirm the pickup location.
+          </p>
+          <p style={{ marginBottom: 0 }}>
+            If you have any questions or special requests, feel free to email or text us
+            at <strong>JerseyRawHelp@gmail.com</strong> or <strong>973-532-2247</strong> —
+            we’re happy to help.
+          </p>
+        </div>
 
         <form
           onSubmit={handleSubmit}
@@ -313,7 +342,7 @@ export default function OrderForm() {
             <option value="">-- Select Recipe --</option>
             {recipes.map((r) => (
               <option key={r.name} value={r.name}>
-                {r.name} – ${r.price.toFixed(2)}/lb
+                {r.name} – ${Number(r.price).toFixed(2)}/lb
               </option>
             ))}
           </select>
@@ -325,17 +354,17 @@ export default function OrderForm() {
           </select>
 
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-  <input
-    type="text"
-    name="amount"
-    value={formData.amount}
-    onChange={handleChange}
-    required
-    placeholder="Amount"
-    style={{ ...inputStyle, flex: 1 }}
-  />
-  <span style={{ fontWeight: "bold", fontSize: "1em", color: "#2b6e44" }}>lb</span>
-</div>
+            <input
+              type="text"
+              name="amount"
+              value={formData.amount}
+              onChange={handleChange}
+              required
+              placeholder="Amount"
+              style={{ ...inputStyle, flex: 1 }}
+            />
+            <span style={{ fontWeight: "bold", fontSize: "1em", color: "#2b6e44" }}>lb</span>
+          </div>
 
           <textarea name="notes" placeholder="Questions or Allergies (optional)" value={formData.notes} onChange={handleChange} rows={4} style={{ ...inputStyle, resize: "vertical" }} />
 
@@ -390,11 +419,90 @@ export default function OrderForm() {
             <strong>Total: ${totals.total.toFixed(2)}</strong>
           </div>
 
-          <button type="submit" disabled={!!warning} style={{ ...buttonStyle, opacity: warning ? 0.6 : 1, cursor: warning ? "not-allowed" : "pointer" }}>
+          <button
+            type="submit"
+            disabled={!!warning}
+            style={{
+              ...buttonStyle,
+              opacity: warning ? 0.6 : 1,
+              cursor: warning ? "not-allowed" : "pointer",
+            }}
+          >
             Submit Order
           </button>
         </form>
       </div>
+
+      {showConfirmation && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            background: "rgba(0,0,0,0.6)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 2000,
+          }}
+        >
+          <div
+            style={{
+              background: "#fff",
+              borderRadius: "15px",
+              padding: "25px",
+              maxWidth: "420px",
+              width: "90%",
+              textAlign: "center",
+              boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
+            }}
+          >
+            <h2 style={{ color: "#2b6e44" }}>Order Received!</h2>
+
+            <p style={{ marginTop: "10px" }}>
+              Thank you for your order. A detailed invoice will be emailed to you shortly.
+            </p>
+            <p>
+              We will contact you by text or phone to schedule a pickup time and confirm the pickup location.
+            </p>
+
+            <div style={{ display: "flex", gap: "12px", marginTop: "20px" }}>
+              <button
+                onClick={handleDone}
+                style={{
+                  flex: 1,
+                  padding: "12px",
+                  borderRadius: "10px",
+                  border: "none",
+                  backgroundColor: "#ccc",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                }}
+              >
+                Done
+              </button>
+
+              <button
+                onClick={handleOrderAgain}
+                style={{
+                  flex: 1,
+                  padding: "12px",
+                  borderRadius: "10px",
+                  border: "none",
+                  backgroundColor: "#2b6e44",
+                  color: "#fff",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                }}
+              >
+                Order Again
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
