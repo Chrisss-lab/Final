@@ -273,7 +273,29 @@ export default function OrderForm() {
         >
           Place Your Order
         </h2>
-
+style={{
+    backgroundColor: "#f3f7f5",
+    borderRadius: "10px",
+    padding: "15px",
+    marginBottom: "20px",
+    fontSize: "0.95em",
+    color: "#2b6e44",
+    lineHeight: 1.5,
+  }}
+>
+  <strong>How Ordering Works</strong>
+  <p style={{ marginTop: "8px" }}>
+    After placing your order, a detailed invoice will be emailed to the email address
+    you provide.
+  </p>
+  <p>
+    Once your order is received, we will contact you by text or phone to schedule
+    a convenient pickup time and confirm the pickup location.
+  </p>
+  <p style={{ marginBottom: 0 }}>
+    If you have any questions or special requests, feel free to send an email or text to JeseyRawHelp@Gmail.com or 973-532-2247 — we’re happy to help.
+  </p>
+</div>
         <form
           onSubmit={handleSubmit}
           style={{ display: "flex", flexDirection: "column", gap: "18px" }}
