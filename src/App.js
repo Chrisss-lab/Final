@@ -155,21 +155,25 @@ function App() {
           </div>
 
           {/* Hamburger button */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            style={{
-              padding: "10px",
-              borderRadius: "10px",
-              border: "none",
-              background: "#2b6e44",
-              color: "#fff",
-              cursor: "pointer",
-              fontWeight: "bold",
-              fontSize: "1.2rem",
-            }}
-          >
-            ☰
-          </button>
+<button
+  onClick={() => setMenuOpen(!menuOpen)}
+  style={{
+    padding: "10px 14px",
+    borderRadius: "10px",
+    border: "none",
+    background: "#2b6e44",
+    color: "#fff",
+    cursor: "pointer",
+    fontWeight: "bold",
+    fontSize: "1.05rem",
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+  }}
+>
+  <span style={{ fontSize: "1.2rem" }}>☰</span>
+  <span>Menu</span>
+</button>
 
           {/* Menu overlay */}
           {menuOpen && (
