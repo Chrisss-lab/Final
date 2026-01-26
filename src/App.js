@@ -325,6 +325,44 @@ function App() {
                     }}
                   ></div>
                 </div>
+{/* 🆕 WHAT'S NEW AT JERSEY RAW */}
+                <div
+                  style={{
+                    maxWidth: "900px",
+                    margin: "30px auto",
+                    padding: "25px",
+                    backgroundColor: "#ffffffcc",
+                    borderRadius: "12px",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                    textAlign: "center",
+                  }}
+                >
+                  <h2 style={{ color: "#2b6e44", marginBottom: "12px" }}>
+                    What’s New at Jersey Raw 🐾
+                  </h2>
+                  <p style={{ fontSize: "1.05em", lineHeight: 1.6 }}>
+                    New recipes, ready-to-ship meals, nutrition updates, and important
+                    changes are posted here so you never miss an update.
+                  </p>
+
+                  <ul
+                    style={{
+                      listStyle: "none",
+                      padding: 0,
+                      marginTop: "15px",
+                      fontSize: "1em",
+                    }}
+                  >
+                  
+                    <li>📦 Ready-to-Ship Dehydrated Recipes — Now Shelf-Stable & Vacuum-Sealed
+Certain recipes like Nature’s Crunch and Dehydrated Royal Carnivore are now available in the Specialty section of the Recipes tab. These are the same high-quality raw meals you love, but dehydrated and vacuum-sealed for shelf stability—perfect for travel, camping, or busy days. They’re easy to pack, simple to rehydrate, and still deliver full raw nutrition. Best of all, they can be shipped straight to your door anywhere in the country.</li>
+                   
+                  </ul>
+
+                  <p style={{ marginTop: "15px", fontWeight: "bold" }}>
+                    Check back often — this section is updated regularly.
+                  </p>
+                </div>
 
                 {/* WHY CHOOSE JERSEY RAW */}
                 <div
